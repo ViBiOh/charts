@@ -1,2 +1,14 @@
----
-apiVersion: 1
+apiVersion: v1
+entries:
+  app:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2020-09-13T18:48:06.24056+02:00"
+    description: A go application for web development
+    digest: 5d3e1e3efeaf3d44f0fba1e12b45485a001884c4a6253c8d9880fb618c273a74
+    name: app
+    type: application
+    urls:
+    - app-0.0.1.tgz
+    version: 0.0.1
+generated: "2020-09-13T18:48:06.239863+02:00"
