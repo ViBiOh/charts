@@ -49,7 +49,9 @@ ingress:
   https_middleware:
     - name: compress
     - name: ratelimit
-  extra_middlewares: []
+  redirect:
+    # regex: ^https?://www.example.localhost(.*)
+    # replacement: https://example.localhost${1}
 
 # pod_disruption is the configuration of the pod_disruption_budget, in any
 pod_disruption:

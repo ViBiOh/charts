@@ -17,8 +17,8 @@ spec:
         {{- range .Values.ingress.http_middlewares }}
         - name: {{ . }}
         {{- end }}
-        {{- range .Values.ingress.extra_middlewares }}
-        - name: {{ . }}
+        {{- if .Values.redirect }}
+        - name: {{ include "app.fullname" . }}-redirect
         {{- end }}
       services:
         - name: {{ include "app.fullname" . }}
@@ -43,8 +43,8 @@ spec:
         {{- range .Values.ingress.https_middlewares }}
         - name: {{ . }}
         {{- end }}
-        {{- range .Values.ingress.extra_middlewares }}
-        - name: {{ . }}
+        {{- if .Values.redirect }}
+        - name: {{ include "app.fullname" . }}-redirect
         {{- end }}
       services:
         - name: {{ include "app.fullname" . }}
