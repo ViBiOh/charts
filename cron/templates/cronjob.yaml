@@ -8,7 +8,7 @@ metadata:
     {{- include "app.labels" . | nindent 4 }}
 spec:
   concurrencyPolicy: {{ .Values.concurrencyPolicy }}
-  schedule: {{ .Values.schedule }}
+  schedule: {{ .Values.schedule | quote }}
   successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
   failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
   jobTemplate:
