@@ -14,7 +14,7 @@ spec:
     - match: {{ include "ingress.hosts" . }}
       kind: Rule
       middlewares:
-        {{- if .Values.redirect }}
+        {{- if .Values.ingress.redirect }}
         - name: {{ include "app.fullname" . }}-redirect
         {{- end }}
         {{- range .Values.ingress.http_middlewares }}
