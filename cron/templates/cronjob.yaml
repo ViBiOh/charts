@@ -29,7 +29,8 @@ spec:
               image: "{{ $root.Values.image.repository }}:{{ $root.Values.image.tag | default $root.Chart.AppVersion }}"
               imagePullPolicy: {{ $root.Values.image.pullPolicy }}
               {{- if len .args }}
-              args: {{ .args }}
+              args:
+                {{- toYaml .args | nindent 16 }}
               {{- end }}
               {{- if or $root.Values.config $root.Values.secretRef }}
               envFrom:
