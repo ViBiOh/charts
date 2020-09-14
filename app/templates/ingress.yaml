@@ -14,11 +14,11 @@ spec:
     - match: {{ include "ingress.hosts" . }}
       kind: Rule
       middlewares:
-        {{- range .Values.ingress.http_middlewares }}
-        - name: {{ . }}
-        {{- end }}
         {{- if .Values.redirect }}
         - name: {{ include "app.fullname" . }}-redirect
+        {{- end }}
+        {{- range .Values.ingress.http_middlewares }}
+        - name: {{ . }}
         {{- end }}
       services:
         - name: {{ include "app.fullname" . }}
@@ -40,11 +40,11 @@ spec:
     - match: {{ include "ingress.hosts" . }}
       kind: Rule
       middlewares:
-        {{- range .Values.ingress.https_middlewares }}
-        - name: {{ . }}
-        {{- end }}
         {{- if .Values.ingress.redirect }}
         - name: {{ include "app.fullname" . }}-redirect
+        {{- end }}
+        {{- range .Values.ingress.https_middlewares }}
+        - name: {{ . }}
         {{- end }}
       services:
         - name: {{ include "app.fullname" . }}
