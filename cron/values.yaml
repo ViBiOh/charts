@@ -1,0 +1,34 @@
+---
+# namespace is the namespace of every object created
+namespace: default
+
+# image is the configuration of image management
+image:
+  repository: vibioh/scratch
+  pullPolicy: Always
+
+concurrencyPolicy: Forbid
+schedule: "0 7 * * *"
+
+successfulJobsHistoryLimit: 2
+failedJobsHistoryLimit: 2
+backoffLimit: 3
+
+containers:
+  - name: job
+    args: ["echo", "Hello world!"]
+
+# config is the map of env var passed to the pod
+config: {}
+
+# secretRef is the name of secret passed to deployment
+secretRef: ""
+
+# resources are the requests and limits for defining the QoS
+resources:
+  limits:
+    cpu: 100m
+    memory: 64M
+  requests:
+    cpu: 100m
+    memory: 64M
