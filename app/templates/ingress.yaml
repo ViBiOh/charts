@@ -43,7 +43,7 @@ spec:
         {{- range .Values.ingress.https_middlewares }}
         - name: {{ . }}
         {{- end }}
-        {{- if .Values.redirect }}
+        {{- if .Values.ingress.redirect }}
         - name: {{ include "app.fullname" . }}-redirect
         {{- end }}
       services:

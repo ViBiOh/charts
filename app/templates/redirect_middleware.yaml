@@ -1,4 +1,4 @@
-{{- if .Values.redirect }}
+{{- if and .Values.ingress.enabled .Values.ingress.redirect }}
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
@@ -9,6 +9,6 @@ metadata:
     {{- include "app.labels" . | nindent 4 }}
 spec:
   redirectRegex:
-    regex: {{ .Values.redirect.regex }}
-    replacement: {{ .Values.redirect.replacement }}
+    regex: {{ .Values.ingress.redirect.regex }}
+    replacement: {{ .Values.ingress.redirect.replacement }}
 {{- end }}
