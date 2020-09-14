@@ -28,12 +28,14 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if or .Values.config .Values.secretRef }}
           envFrom:
+          {{- if .Values.config }}
             - configMapRef:
                 name: {{ include "app.fullname" . }}
           {{- end }}
           {{- if .Values.secretRef }}
             - secretRef:
                 name: {{ .Values.secretRef }}
+          {{- end }}
           {{- end }}
           ports:
             - name: http
