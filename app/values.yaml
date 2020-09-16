@@ -7,6 +7,9 @@ image:
   repository: vibioh/scratch
   pullPolicy: Always
 
+# port is the listened HTTP port
+port: 1080
+
 # podAnnotations is the map of annotations placed on the pod
 podAnnotations:
   prometheus.io/scrape: "true"

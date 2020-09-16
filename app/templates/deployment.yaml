@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "app.fullname" . }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace | quote }}
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
@@ -23,9 +23,9 @@ spec:
         {{- include "app.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "app.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           {{- if or .Values.config .Values.secretRef }}
           envFrom:
           {{- if .Values.config }}
@@ -34,20 +34,20 @@ spec:
           {{- end }}
           {{- if .Values.secretRef }}
             - secretRef:
-                name: {{ .Values.secretRef }}
+                name: {{ .Values.secretRef | quote }}
           {{- end }}
           {{- end }}
           ports:
             - name: http
-              containerPort: 1080
+              containerPort: {{ .Values.port }}
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: "{{ .Values.livenessProbePath }}"
+              path: {{ .Values.livenessProbePath | quote }}
               port: http
           readinessProbe:
             httpGet:
-              path: "{{ .Values.readinessProbePath }}"
+              path: {{ .Values.readinessProbePath | quote  }}
               port: http
           {{- with .Values.resources }}
           resources:

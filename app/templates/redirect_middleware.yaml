@@ -4,7 +4,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: {{ include "app.fullname" . }}-redirect
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace | quote }}
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:

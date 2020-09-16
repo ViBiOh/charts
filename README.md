@@ -4,9 +4,8 @@ Personnal Helm charts collection
 
 ## How-To
 
-### Add a new chart version
+### Adding repository
 
 ```bash
-helm package chart-name/
-helm repo index .
+helm repo add vibioh https://charts.vibioh.fr
 ```
