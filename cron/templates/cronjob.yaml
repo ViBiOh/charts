@@ -3,7 +3,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: {{ include "app.fullname" . }}
-  namespace: {{ .Values.namespace | quote }}
+  namespace: {{ .Values.namespace }}
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
@@ -21,7 +21,7 @@ spec:
       backoffLimit: {{ .Values.backoffLimit }}
       template:
         spec:
-          restartPolicy: {{ .Values.restartPolicy | quote }}
+          restartPolicy: {{ .Values.restartPolicy }}
           containers:
             {{- $root := . }}
             {{- range $root.Values.containers }}
@@ -40,7 +40,7 @@ spec:
               {{- end }}
               {{- if $root.Values.secretRef }}
                 - secretRef:
-                    name: {{ $root.Values.secretRef | quote }}
+                    name: {{ $root.Values.secretRef }}
               {{- end }}
               {{- end }}
               {{- with $root.Values.resources }}
