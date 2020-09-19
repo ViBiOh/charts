@@ -1,7 +1,4 @@
 ---
-# namespace is the namespace of every object created
-namespace: default
-
 # image is the configuration of image management
 image:
   repository: vibioh/scratch
