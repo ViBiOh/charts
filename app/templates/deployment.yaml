@@ -53,3 +53,29 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+      {{- if .Values.init.enabled }}
+      initContainers:
+        - name: {{ include "app.fullname" . }}-init
+          image: "{{ .Values.init.repository }}:{{ .Values.init.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.init.pullPolicy }}
+          {{- with .Values.init.env }}
+          env:
+            {{- range $key, $value := .Values.init.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.init.secretRef }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.init.secretRef }}
+          {{- end }}
+          {{- if .Values.init.command }}
+          command:
+            {{- toYaml .Values.init.command | nindent 12 }}
+          {{- end }}
+          {{- if .Values.init.resources }}
+          resources:
+            {{- toYaml .Values.init.resources | nindent 12 }}
+          {{- end }}
+      {{- end }}

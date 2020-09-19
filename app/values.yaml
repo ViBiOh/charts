@@ -7,10 +7,40 @@ image:
   repository: vibioh/scratch
   pullPolicy: Always
 
-# port is the listened HTTP port
+# init container of the deployment, if any
+init:
+  enabled: false
+
+  # onfiguration of init_container image management
+  repository: vibioh/scratch
+  pullPolicy: Always
+
+  # command to run inside init_container
+  command:
+    - /bin/bash
+    - "-c"
+    - "echo Hello"
+
+  # env variables passed to the pod
+  env:
+    LOG_LEVEL: INFO
+
+  # secretRef passed to init_containers
+  secretRef: secret
+
+  # resources requests and limits for defining the QoS
+  resources:
+    limits:
+      cpu: 100m
+      memory: 64M
+    requests:
+      cpu: 100m
+      memory: 64M
+
+# port HTTP listened
 port: 1080
 
-# podAnnotations is the map of annotations placed on the pod
+# podAnnotations placed on the pod
 podAnnotations:
   prometheus.io/scrape: "true"
   prometheus.io/scheme: http
@@ -22,13 +52,13 @@ livenessProbePath: /health
 # readinessProbePath is the path of readiness
 readinessProbePath: /health
 
-# config is the map of env var passed to the pod
+# config map created and passed to the pod as a ref
 config: {}
 
-# secretRef is the name of secret passed to deployment
+# secretRef passed to deployment
 secretRef: ""
 
-# resources are the requests and limits for defining the QoS
+# resources requests and limits for defining the QoS
 resources:
   limits:
     cpu: 100m
@@ -37,12 +67,12 @@ resources:
     cpu: 100m
     memory: 64M
 
-# service is the configuration map for the service
+# service configuration for the service
 service:
   type: ClusterIP
   port: 80
 
-# ingress is the configuration of the Traefik's ingress, in any
+# ingress configuration of the Traefik's ingress, in any
 ingress:
   enabled: false
   hosts:
@@ -56,12 +86,12 @@ ingress:
   #   regex: ^https?://www.example.localhost(.*)
   #   replacement: https://example.localhost${1}
 
-# pod_disruption is the configuration of the pod_disruption_budget, in any
+# pod_disruption configuration for the pod_disruption_budget, in any
 pod_disruption:
   enabled: true
   minAvailable: 1
 
-# autoscaling is the configuration of the horizontal pod autoscaler, in any
+# autoscaling configuration for the horizontal pod autoscaler, in any
 autoscaling:
   enabled: true
   minReplicas: 1

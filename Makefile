@@ -5,7 +5,7 @@ ifneq ("$(wildcard .env)","")
 	export
 endif
 
-.DEFAULT_GOAL := init
+.DEFAULT_GOAL := build
 
 ## help: Display list of commands
 .PHONY: help
