@@ -11,7 +11,7 @@ image:
 init:
   enabled: false
 
-  # onfiguration of init_container image management
+  # configuration of init_container image management
   repository: vibioh/scratch
   pullPolicy: Always
 
@@ -22,11 +22,10 @@ init:
     - "echo Hello"
 
   # env variables passed to the pod
-  env:
-    LOG_LEVEL: INFO
+  env: {}
 
   # secretRef passed to init_containers
-  secretRef: secret
+  secretRef: ""
 
   # resources requests and limits for defining the QoS
   resources:

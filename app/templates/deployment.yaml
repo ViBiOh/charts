@@ -60,7 +60,7 @@ spec:
           imagePullPolicy: {{ .Values.init.pullPolicy }}
           {{- with .Values.init.env }}
           env:
-            {{- range $key, $value := .Values.init.env }}
+            {{- range $key, $value := . }}
             - name: {{ $key | quote }}
               value: {{ $value | quote }}
             {{- end }}
