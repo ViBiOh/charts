@@ -17,6 +17,12 @@ help: Makefile
 init:
 	@curl -q -sSL --max-time 30 "https://raw.githubusercontent.com/ViBiOh/scripts/master/bootstrap" | bash -s "git_hooks"
 
+## lint: Lint helm package
+.PHONY: lint
+lint:
+	helm lint app/
+	helm lint cron/
+
 ## package: Package every charts into a tgz
 .PHONY: package
 package:
@@ -30,4 +36,4 @@ index:
 
 ## build: Package and index repository
 .PHONY: build
-build: package index
+build: lint package index
