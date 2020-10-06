@@ -1,8 +1,8 @@
 ---
 apiVersion: v2
 name: app
-description: An app for the web
+description: A go application for web development
 
 type: application
-version: 0.0.12
+version: 0.0.11
 appVersion: latest

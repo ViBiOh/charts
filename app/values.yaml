@@ -51,9 +51,6 @@ readinessProbePath: /health
 # config map created and passed to the pod as a ref
 config: {}
 
-# sealed_secrets map created and passed to the pod as a ref
-sealed_secrets: {}
-
 # secretRef passed to deployment
 secretRef: ""
 
