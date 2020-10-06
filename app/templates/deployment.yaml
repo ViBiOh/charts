@@ -25,15 +25,15 @@ spec:
         - name: {{ include "app.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- if or .Values.config .Values.secrets }}
+          {{- if or .Values.config .Values.secretRef }}
           envFrom:
           {{- if .Values.config }}
             - configMapRef:
                 name: {{ include "app.fullname" . }}
           {{- end }}
-          {{- if .Values.secrets }}
+          {{- if .Values.secretRef }}
             - secretRef:
-                name: {{ include "app.fullname" . }}
+                name: {{ .Values.secretRef }}
           {{- end }}
           {{- end }}
           ports:
@@ -64,10 +64,10 @@ spec:
               value: {{ $value | quote }}
             {{- end }}
           {{- end }}
-          {{- if .Values.init.secrets }}
+          {{- if .Values.init.secretRef }}
           envFrom:
             - secretRef:
-                name: {{ include "app.fullname" . }}-init
+                name: {{ .Values.init.secretRef }}
           {{- end }}
           {{- if .Values.init.command }}
           command:

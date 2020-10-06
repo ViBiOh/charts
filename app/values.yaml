@@ -21,8 +21,8 @@ init:
   # env variables passed to the pod
   env: {}
 
-  # secrets map, in the form of a Sealed Secrets, created and passed to the init_container as a ref
-  secrets: {}
+  # secretRef passed to init_containers
+  secretRef: ""
 
   # resources requests and limits for defining the QoS
   resources:
@@ -51,8 +51,11 @@ readinessProbePath: /health
 # config map created and passed to the pod as a ref
 config: {}
 
-# secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
-secrets: {}
+# sealed_secrets map created and passed to the pod as a ref
+sealed_secrets: {}
+
+# secretRef passed to deployment
+secretRef: ""
 
 # resources requests and limits for defining the QoS
 resources:
