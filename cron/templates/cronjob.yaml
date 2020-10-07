@@ -16,6 +16,9 @@ spec:
       {{- with .Values.config }}
         checksum/config: {{ toYaml . | sha256sum }}
       {{- end }}
+      {{- with .Values.secrets }}
+        checksum/secrets: {{ toYaml . | sha256sum }}
+      {{- end }}
     spec:
       backoffLimit: {{ .Values.backoffLimit }}
       template:

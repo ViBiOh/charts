@@ -21,7 +21,6 @@ spec:
         {{- end }}
       services:
         - name: {{ include "app.fullname" . }}
-          namespace: {{ .Values.namespace }}
           port: {{ .Values.service.port }}
 
 ---
@@ -46,7 +45,6 @@ spec:
         {{- end }}
       services:
         - name: {{ include "app.fullname" . }}
-          namespace: {{ .Values.namespace }}
           port: {{ .Values.service.port }}
   tls:
     certResolver: default
