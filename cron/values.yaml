@@ -19,8 +19,8 @@ containers:
 # config is the map of env var passed to the pod
 config: {}
 
-# secretRef is the name of secret passed to deployment
-secretRef: ""
+# secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
+secrets: {}
 
 # resources are the requests and limits for defining the QoS
 resources:

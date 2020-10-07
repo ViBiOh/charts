@@ -34,15 +34,15 @@ spec:
               args:
                 {{- toYaml .args | nindent 16 }}
               {{- end }}
-              {{- if or $root.Values.config $root.Values.secretRef }}
+              {{- if or $root.Values.config $root.Values.secrets }}
               envFrom:
               {{- if $root.Values.config }}
                 - configMapRef:
                     name: {{ include "app.fullname" $root }}
               {{- end }}
-              {{- if $root.Values.secretRef }}
+              {{- if $root.Values.secrets }}
                 - secretRef:
-                    name: {{ $root.Values.secretRef }}
+                    name: {{ include "app.fullname" $root }}
               {{- end }}
               {{- end }}
               {{- with $root.Values.resources }}
