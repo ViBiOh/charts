@@ -54,6 +54,9 @@ config: {}
 # secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
 secrets: {}
 
+# strategy defines the rollout strategy for deployment
+strategy: {}
+
 # resources requests and limits for defining the QoS
 resources:
   limits:
