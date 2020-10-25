@@ -1,51 +1,62 @@
 {{- if .Values.ingress.enabled -}}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: {{ include "app.fullname" . }}-http
-  labels:
-    {{- include "app.labels" . | nindent 4 }}
-spec:
-  entryPoints:
-    - http
-  routes:
-    - match: {{ include "ingress.hosts" . }}
-      kind: Rule
-      middlewares:
-        {{- if .Values.ingress.redirect }}
-        - name: {{ include "app.fullname" . }}-redirect
-        {{- end }}
-        {{- range .Values.ingress.http_middlewares }}
-        - name: {{ . }}
-        {{- end }}
-      services:
-        - name: {{ include "app.fullname" . }}
-          port: {{ .Values.service.port }}
+
+{{- $root := . -}}
+{{- $httpMiddlewares := .Values.ingress.http_middlewares -}}
+{{- if .Values.ingress.redirect }}
+  {{- $redirectMiddleware := printf "%s-%s" .Values.nameOverride "-redirect" -}}
+  {{- $httpMiddlewares = append $httpMiddlewares $redirectMiddleware -}}
+{{- end -}}
 
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: {{ include "app.fullname" . }}-https
+  name: {{ include "app.fullname" . }}-http
+  annotations:
+    {{- with $httpMiddlewares }}
+    traefik.ingress.kubernetes.io/router.middlewares: {{ include "app.joinComma" . }}
+    {{- end }}
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
-  entryPoints:
-    - https
-  routes:
-    - match: {{ include "ingress.hosts" . }}
-      kind: Rule
-      middlewares:
-        {{- if .Values.ingress.redirect }}
-        - name: {{ include "app.fullname" . }}-redirect
-        {{- end }}
-        {{- range .Values.ingress.https_middlewares }}
-        - name: {{ . }}
-        {{- end }}
-      services:
-        - name: {{ include "app.fullname" . }}
-          port: {{ .Values.service.port }}
-  tls:
-    certResolver: default
+  rules:
+    {{- range .Values.ingress.hosts }}
+    - host: "{{ . }}"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "app.fullname" $root }}
+                port:
+                  number: {{ $root.Values.service.port }}
+    {{- end }}
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "app.fullname" . }}-https
+  annotations:
+    {{- with .Values.ingress.https_middlewares }}
+    traefik.ingress.kubernetes.io/router.middlewares: {{ include "app.joinComma" . }}
+    {{- end }}
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  rules:
+    {{- range .Values.ingress.hosts }}
+    - host: "{{ . }}"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "app.fullname" $root }}
+                port:
+                  number: {{ $root.Values.service.port }}
+    {{- end }}
 {{- end -}}

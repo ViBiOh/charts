@@ -33,10 +33,10 @@ Create chart name and version as used by the chart label.
 {{/*
 Ingress hosts
 */}}
-{{- define "ingress.hosts" -}}
-  {{ range $count, $e := .Values.ingress.hosts -}}
-    {{- if gt $count 0 }} || {{ end -}}
-    Host(`{{ $e }}`)
+{{- define "app.joinComma" -}}
+  {{ range $count, $e := . -}}
+    {{- if gt $count 0 }},{{ end -}}
+    {{ $e -}}
   {{- end }}
 {{- end }}
 

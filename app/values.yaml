@@ -77,10 +77,10 @@ ingress:
   hosts:
     - example.localhost
   http_middlewares:
-    - redirect
+    - redirect@file
   https_middlewares:
-    - compress
-    - ratelimit
+    - compress@file
+    - rate-limit@file
   # redirect:
   #   regex: ^https?://www.example.localhost(.*)
   #   replacement: https://example.localhost${1}
