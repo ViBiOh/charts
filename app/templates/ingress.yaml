@@ -3,7 +3,7 @@
 {{- $root := . -}}
 {{- $httpMiddlewares := .Values.ingress.http_middlewares -}}
 {{- if .Values.ingress.redirect }}
-  {{- $redirectMiddleware := printf "%s-%s" (include "app.fullname" $root) "redirect" -}}
+  {{- $redirectMiddleware := printf "%s-%s-%s" .Release.Namespace (include "app.fullname" $root) "redirect@kubernetescrd" -}}
   {{- $httpMiddlewares = append $httpMiddlewares $redirectMiddleware -}}
 {{- end -}}
 
