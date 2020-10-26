@@ -1,11 +1,15 @@
 {{- if .Values.ingress.enabled -}}
 
 {{- $root := . -}}
-{{- $httpMiddlewares := .Values.ingress.http_middlewares -}}
+
+{{- $redirectMiddlewares := list -}}
 {{- if .Values.ingress.redirect }}
   {{- $redirectMiddleware := printf "%s-%s-%s" .Release.Namespace (include "app.fullname" $root) "redirect@kubernetescrd" -}}
-  {{- $httpMiddlewares = append $httpMiddlewares $redirectMiddleware -}}
+  {{- $redirectMiddlewares = append $redirectMiddlewares $redirectMiddleware -}}
 {{- end -}}
+
+{{- $httpMiddlewares := concat $redirectMiddlewares .Values.ingress.http_middlewares -}}
+{{- $httpsMiddlewares := concat $redirectMiddlewares .Values.ingress.https_middlewares -}}
 
 ---
 apiVersion: networking.k8s.io/v1
@@ -39,7 +43,7 @@ kind: Ingress
 metadata:
   name: {{ include "app.fullname" . }}-https
   annotations:
-    {{- with .Values.ingress.https_middlewares }}
+    {{- with $httpsMiddlewares }}
     traefik.ingress.kubernetes.io/router.middlewares: {{ include "app.joinComma" . }}
     {{- end }}
     traefik.ingress.kubernetes.io/router.tls: "true"
