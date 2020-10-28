@@ -47,14 +47,18 @@ spec:
             - name: http
               containerPort: {{ .Values.port }}
               protocol: TCP
+          {{- with .Values.livenessProbePath }}
           livenessProbe:
             httpGet:
-              path: {{ .Values.livenessProbePath }}
+              path: {{ . | quote }}
               port: http
+          {{- end }}
+          {{- with .Values.readinessProbePath }}
           readinessProbe:
             httpGet:
-              path: {{ .Values.readinessProbePath  }}
+              path: {{ . | quote }}
               port: http
+          {{- end }}
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
