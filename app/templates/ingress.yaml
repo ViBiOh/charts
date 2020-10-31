@@ -47,6 +47,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: {{ include "app.joinComma" . }}
     {{- end }}
     traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: default
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
