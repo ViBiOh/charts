@@ -8,6 +8,7 @@ metadata:
     {{- include "app.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
+    apiVersion: v1
     kind: Deployment
     name: {{ include "app.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
@@ -16,9 +17,13 @@ spec:
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: {{ .Values.autoscaling.targetAverageUtilization }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.autoscaling.targetAverageUtilization }}
     - type: Resource
       resource:
         name: memory
-        targetAverageUtilization: {{ .Values.autoscaling.targetAverageUtilization }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.autoscaling.targetAverageUtilization }}
 {{- end -}}

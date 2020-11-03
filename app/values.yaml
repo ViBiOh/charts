@@ -95,4 +95,4 @@ autoscaling:
   enabled: true
   minReplicas: 1
   maxReplicas: 3
-  targetAverageUtilization: 80
+  targetAverageUtilization: 75
