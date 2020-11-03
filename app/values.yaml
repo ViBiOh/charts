@@ -28,10 +28,10 @@ init:
   resources:
     limits:
       cpu: 100m
-      memory: 64M
+      memory: 50M
     requests:
       cpu: 100m
-      memory: 64M
+      memory: 50M
 
 # port HTTP listened
 port: 1080

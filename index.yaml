@@ -3,7 +3,17 @@ entries:
   app:
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.229772+01:00"
+    created: "2020-11-03T22:52:23.137983+01:00"
+    description: An app for the web
+    digest: a6fb758c97b022dbcc76c1edafcbb3cfe6ca29b9e646552f4bc92c42515bcc99
+    name: app
+    type: application
+    urls:
+    - packages/app-0.0.25.tgz
+    version: 0.0.25
+  - apiVersion: v2
+    appVersion: latest
+    created: "2020-11-03T22:52:23.137485+01:00"
     description: An app for the web
     digest: c39ebcaa7174a882d7f541df5cd9c133b966ad0ff405ab175d5178c9cee07c17
     name: app
@@ -13,7 +23,7 @@ entries:
     version: 0.0.24
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.229287+01:00"
+    created: "2020-11-03T22:52:23.137004+01:00"
     description: An app for the web
     digest: 7eb07544173c6e934c0b04ef432d132462a3779a43a51df5468badbd40b9bf07
     name: app
@@ -23,7 +33,7 @@ entries:
     version: 0.0.23
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.228805+01:00"
+    created: "2020-11-03T22:52:23.136518+01:00"
     description: An app for the web
     digest: 3af463e0f468a9034f574156887df796f178909df346170ce3141bfc58b3cd4a
     name: app
@@ -33,7 +43,7 @@ entries:
     version: 0.0.22
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.228325+01:00"
+    created: "2020-11-03T22:52:23.136022+01:00"
     description: An app for the web
     digest: 1fac6698c4916d6d5ec4aa600340f83f4900230c340aff05d3f8c4c531971917
     name: app
@@ -43,7 +53,7 @@ entries:
     version: 0.0.21
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.227814+01:00"
+    created: "2020-11-03T22:52:23.135472+01:00"
     description: An app for the web
     digest: 16481bb70bc211499d9f8e13f5d1c3449658171f2f0da37e6856394c358ccd8c
     name: app
@@ -53,7 +63,7 @@ entries:
     version: 0.0.20
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.226843+01:00"
+    created: "2020-11-03T22:52:23.133784+01:00"
     description: An app for the web
     digest: a1513bf4ed098444b4e099d130ea24e379ad589d7684939be75cb1bdfebd7805
     name: app
@@ -63,7 +73,7 @@ entries:
     version: 0.0.19
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.225882+01:00"
+    created: "2020-11-03T22:52:23.133237+01:00"
     description: An app for the web
     digest: c42900c6f741b54a35f654cf9c52eccebd9775d882f5d0add403d22c7a7c5f19
     name: app
@@ -73,7 +83,7 @@ entries:
     version: 0.0.18
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.225045+01:00"
+    created: "2020-11-03T22:52:23.132706+01:00"
     description: An app for the web
     digest: 84d714c2b5726eb9582972ccecc906c72b2bd7710f071d63ed7b052c3cb3bcef
     name: app
@@ -83,7 +93,7 @@ entries:
     version: 0.0.17
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.22446+01:00"
+    created: "2020-11-03T22:52:23.13218+01:00"
     description: An app for the web
     digest: 523b165bedae1c6e51607996a842da98af4a3d5492bdef68f9ea434c53695bca
     name: app
@@ -93,7 +103,7 @@ entries:
     version: 0.0.16
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.223899+01:00"
+    created: "2020-11-03T22:52:23.131631+01:00"
     description: An app for the web
     digest: cf4392e3b374f2cf96186033a850068d65bb07138aae10dc2880e7f551dcac50
     name: app
@@ -103,7 +113,7 @@ entries:
     version: 0.0.15
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.223347+01:00"
+    created: "2020-11-03T22:52:23.131105+01:00"
     description: An app for the web
     digest: ab0e8f9aa753ed32bee6a46a7f1a9e3dd18dd1bd36029e989344c064d98862a9
     name: app
@@ -113,7 +123,7 @@ entries:
     version: 0.0.14
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.222839+01:00"
+    created: "2020-11-03T22:52:23.130599+01:00"
     description: An app for the web
     digest: ab014865c428ff913e8e5f1d6ae30df98283d14f9559f56b57a1156bda172982
     name: app
@@ -123,7 +133,7 @@ entries:
     version: 0.0.13
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.222291+01:00"
+    created: "2020-11-03T22:52:23.130091+01:00"
     description: An app for the web
     digest: 1d9a37ca3e0edf76601bface837cb4330494274d6f476954b0742e24e7693e83
     name: app
@@ -133,7 +143,7 @@ entries:
     version: 0.0.12
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.221737+01:00"
+    created: "2020-11-03T22:52:23.129575+01:00"
     description: A go application for web development
     digest: fee956f5c14d0b4d8f13d8de410ef9de31308370cb0e61d1ed9e6ecdac8d73dd
     name: app
@@ -143,7 +153,7 @@ entries:
     version: 0.0.11
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.22122+01:00"
+    created: "2020-11-03T22:52:23.129105+01:00"
     description: A go application for web development
     digest: 55cf83ecaf53e1990c231e17615b08fdb4f811707cee6a72001374332e0bec80
     name: app
@@ -153,7 +163,7 @@ entries:
     version: 0.0.10
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.232611+01:00"
+    created: "2020-11-03T22:52:23.140889+01:00"
     description: A go application for web development
     digest: e5bdfaefae1f389d2a2befbdf6a91cecfbf6b415c6a4eb73ea15f4b4946dc8f2
     name: app
@@ -163,7 +173,7 @@ entries:
     version: 0.0.9
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.232197+01:00"
+    created: "2020-11-03T22:52:23.140472+01:00"
     description: A go application for web development
     digest: bce3800cb199b0128fab5d23624b1ebc2204e27643da07ee116ea898fc273489
     name: app
@@ -173,7 +183,7 @@ entries:
     version: 0.0.8
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.231786+01:00"
+    created: "2020-11-03T22:52:23.140026+01:00"
     description: A go application for web development
     digest: 0d6cfcb75fb7d7a479c909c0cf9efa959660f1a59f4ef4a0ab9418717273fe75
     name: app
@@ -183,7 +193,7 @@ entries:
     version: 0.0.7
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.231385+01:00"
+    created: "2020-11-03T22:52:23.139608+01:00"
     description: A go application for web development
     digest: 2d566415c34e392aef7042216dadf501f612664b219d56066c4dcb1fab1f02f2
     name: app
@@ -193,7 +203,7 @@ entries:
     version: 0.0.6
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.230985+01:00"
+    created: "2020-11-03T22:52:23.139192+01:00"
     description: A go application for web development
     digest: bc45679baf1fbd735f8a3e2f0f93c525d9ec9e39c6d0f3bf8fb13eef7d19fa3f
     name: app
@@ -203,7 +213,7 @@ entries:
     version: 0.0.5
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.230582+01:00"
+    created: "2020-11-03T22:52:23.138787+01:00"
     description: A go application for web development
     digest: 1a972735cad0340012fd5c09141b395638bfec0608ee177dbf97aa983924ac92
     name: app
@@ -213,7 +223,7 @@ entries:
     version: 0.0.4
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.230191+01:00"
+    created: "2020-11-03T22:52:23.138394+01:00"
     description: A go application for web development
     digest: c1ec8e040ca4d3df2fa7d352495416eea7e8e76c88ba6b02a76ced9475d07f9e
     name: app
@@ -223,7 +233,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.227275+01:00"
+    created: "2020-11-03T22:52:23.134908+01:00"
     description: A go application for web development
     digest: e19a90ccb15e66f2941b2734610d9cadafa077945cd3384ebb5cd88f6361cd97
     name: app
@@ -233,7 +243,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.220684+01:00"
+    created: "2020-11-03T22:52:23.128603+01:00"
     description: A go application for web development
     digest: 5d3e1e3efeaf3d44f0fba1e12b45485a001884c4a6253c8d9880fb618c273a74
     name: app
@@ -244,9 +254,9 @@ entries:
   cron:
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.235805+01:00"
+    created: "2020-11-03T22:52:23.144174+01:00"
     description: A cron
-    digest: 0ac41208a3bdbe98dd8afd7f41de1c64e91978ddce4e6091ea162914b44664e8
+    digest: d995fc6f60b17f1b8a017968105a1d814b96ea5fc59230d1974c679751bbab36
     name: cron
     type: application
     urls:
@@ -254,7 +264,7 @@ entries:
     version: 0.0.8
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.235468+01:00"
+    created: "2020-11-03T22:52:23.143772+01:00"
     description: A cron
     digest: b0630c6ed30fe788aaa853d30e8dbe64de609b64f0961c0469dc07754b93e90b
     name: cron
@@ -264,7 +274,7 @@ entries:
     version: 0.0.7
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.234861+01:00"
+    created: "2020-11-03T22:52:23.142784+01:00"
     description: A cron
     digest: b0bc3d69c2a74d3082428263736b755f78981d8ba6bb16ab8777d75d5c535267
     name: cron
@@ -274,7 +284,7 @@ entries:
     version: 0.0.6
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.234182+01:00"
+    created: "2020-11-03T22:52:23.142469+01:00"
     description: A cron
     digest: 0f832f8a26dc878cb640da2238fde0265ad31f77117575c11fd37cf04f6c8d23
     name: cron
@@ -284,7 +294,7 @@ entries:
     version: 0.0.5
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.23385+01:00"
+    created: "2020-11-03T22:52:23.142153+01:00"
     description: A cron
     digest: 227e9bd1ba5b28992bc05d76a95299e7a24a840d47eca9667994721109ff343f
     name: cron
@@ -294,7 +304,7 @@ entries:
     version: 0.0.4
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.233536+01:00"
+    created: "2020-11-03T22:52:23.141827+01:00"
     description: A cron
     digest: 1df82924aec2c00460962fffc93dd6c37e0ef1bc0f3f09198798c292d0c1b3ca
     name: cron
@@ -304,7 +314,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.233221+01:00"
+    created: "2020-11-03T22:52:23.14152+01:00"
     description: A cron
     digest: 8358ecc9b73b9acca063e7c359c068a4546754998decffd8e9b8bacd11cbd03e
     name: cron
@@ -314,7 +324,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: latest
-    created: "2020-11-03T22:28:32.232914+01:00"
+    created: "2020-11-03T22:52:23.141206+01:00"
     description: A cron
     digest: 296e83dd80ca6221c9419953903905b19f0a4d7b7b6c8c51a547510ace30291b
     name: cron
@@ -322,4 +332,4 @@ entries:
     urls:
     - packages/cron-0.0.1.tgz
     version: 0.0.1
-generated: "2020-11-03T22:28:32.220071+01:00"
+generated: "2020-11-03T22:52:23.128035+01:00"
