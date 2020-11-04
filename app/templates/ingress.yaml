@@ -17,6 +17,7 @@ kind: Ingress
 metadata:
   name: {{ include "app.fullname" . }}-http
   annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: "web"
     {{- with $httpMiddlewares }}
     traefik.ingress.kubernetes.io/router.middlewares: {{ include "app.joinComma" . }}
     {{- end }}
@@ -43,6 +44,7 @@ kind: Ingress
 metadata:
   name: {{ include "app.fullname" . }}-https
   annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     {{- with $httpsMiddlewares }}
     traefik.ingress.kubernetes.io/router.middlewares: {{ include "app.joinComma" . }}
     {{- end }}
