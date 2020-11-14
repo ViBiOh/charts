@@ -40,7 +40,7 @@ port: 1080
 podAnnotations:
   prometheus.io/scrape: "true"
   prometheus.io/scheme: http
-  prometheus.io/port: "1080"
+  prometheus.io/port: http
 
 # livenessProbePath is the path of liveness
 livenessProbePath: /health
