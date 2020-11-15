@@ -72,7 +72,7 @@ service:
   type: ClusterIP
   port: 80
 
-# ingress configuration of the Traefik's ingress, in any
+# ingress configuration of the Traefik's ingress, if any
 ingress:
   enabled: false
   hosts:
@@ -86,12 +86,12 @@ ingress:
   #   regex: ^https?://www.example.localhost(.*)
   #   replacement: https://example.localhost${1}
 
-# pod_disruption configuration for the pod_disruption_budget, in any
+# pod_disruption configuration for the pod_disruption_budget, if any
 pod_disruption:
   enabled: true
   minAvailable: 1
 
-# autoscaling configuration for the horizontal pod autoscaler, in any
+# autoscaling configuration for the horizontal pod autoscaler, if any
 autoscaling:
   enabled: true
   minReplicas: 1
