@@ -2,6 +2,7 @@
 # image is the configuration of image management
 image:
   repository: vibioh/scratch
+  tag: latest
   pullPolicy: Always
 
 # init container of the deployment, if any

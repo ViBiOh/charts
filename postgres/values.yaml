@@ -1,0 +1,46 @@
+---
+# image is the configuration of image management
+image:
+  repository: postgres
+  tag: 12
+  pullPolicy: Always
+
+# podAnnotations placed on the pod
+podAnnotations: {}
+
+# config map created and passed to the pod as a ref
+config:
+  POSTGRES_USER: app
+  POSTGRES_DB: app
+  PGDATA: /var/lib/postgresql/data/pgdata
+
+port: 5432
+
+# persistentVolume for storing databases datas
+persistentvolume:
+  enabled: true
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  storage: 200Mi
+
+# secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
+secrets:
+  POSTGRES_PASSWORD: changeme
+
+# strategy defines the rollout strategy for deployment
+strategy: {}
+
+# resources requests and limits for defining the QoS
+resources:
+  limits:
+    cpu: 100m
+    memory: 64M
+  requests:
+    cpu: 100m
+    memory: 64M
+
+# service configuration for the service
+service:
+  type: ClusterIP
+  port: 80

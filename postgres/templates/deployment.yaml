@@ -30,6 +30,13 @@ spec:
       labels:
         {{- include "app.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.persistentvolume.enabled }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "app.fullname" . }}
+      {{- end }}
+
       containers:
         - name: {{ include "app.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -47,52 +54,27 @@ spec:
           {{- end }}
           {{- end }}
 
+          {{- if .Values.persistentvolume.enabled }}
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+          {{- end }}
+
           ports:
-            - name: http
+            - name: postgres
               containerPort: {{ .Values.port }}
               protocol: TCP
-
-          {{- with .Values.livenessProbePath }}
-          livenessProbe:
-            httpGet:
-              path: {{ . | quote }}
-              port: http
-          {{- end }}
-          {{- with .Values.readinessProbePath }}
           readinessProbe:
-            httpGet:
-              path: {{ . | quote }}
-              port: http
-          {{- end }}
+            exec:
+              command: [pg_isready]
 
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
 
-      {{- if .Values.init.enabled }}
-      initContainers:
-        - name: {{ include "app.fullname" . }}-init
-          image: "{{ .Values.init.repository }}:{{ .Values.init.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.init.pullPolicy }}
-          {{- with .Values.init.env }}
-          env:
-            {{- range $key, $value := . }}
-            - name: {{ $key | quote }}
-              value: {{ $value | quote }}
-            {{- end }}
-          {{- end }}
-          {{- if .Values.init.secrets }}
-          envFrom:
-            - secretRef:
-                name: {{ include "app.fullname" . }}-init
-          {{- end }}
-          {{- if .Values.init.command }}
-          command:
-            {{- toYaml .Values.init.command | nindent 12 }}
-          {{- end }}
-          {{- if .Values.init.resources }}
-          resources:
-            {{- toYaml .Values.init.resources | nindent 12 }}
-          {{- end }}
-      {{- end }}
+          securityContext:
+            runAsGroup: 999
+            runAsUser: 999
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false

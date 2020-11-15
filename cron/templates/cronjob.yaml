@@ -10,6 +10,7 @@ spec:
   schedule: {{ .Values.schedule | quote }}
   successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
   failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
+
   jobTemplate:
     metadata:
       annotations:
@@ -19,6 +20,7 @@ spec:
       {{- with .Values.secrets }}
         checksum/secrets: {{ toYaml . | sha256sum }}
       {{- end }}
+
     spec:
       backoffLimit: {{ .Values.backoffLimit }}
       template:
@@ -30,10 +32,12 @@ spec:
             - name: {{ .name }}
               image: "{{ $root.Values.image.repository }}:{{ $root.Values.image.tag | default $root.Chart.AppVersion }}"
               imagePullPolicy: {{ $root.Values.image.pullPolicy }}
+
               {{- if len .args }}
               args:
                 {{- toYaml .args | nindent 16 }}
               {{- end }}
+
               {{- if or $root.Values.config $root.Values.secrets }}
               envFrom:
               {{- if $root.Values.config }}
@@ -45,6 +49,7 @@ spec:
                     name: {{ include "app.fullname" $root }}
               {{- end }}
               {{- end }}
+
               {{- with $root.Values.resources }}
               resources:
                 {{- toYaml . | nindent 16 }}
