@@ -1,0 +1,57 @@
+{{- if .Values.backup.enabled }}
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "app.fullname" . }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  concurrencyPolicy: {{ .Values.concurrencyPolicy }}
+  schedule: {{ .Values.schedule | quote }}
+  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
+
+  jobTemplate:
+    metadata:
+      annotations:
+      {{- with .Values.config }}
+        checksum/config: {{ toYaml . | sha256sum }}
+      {{- end }}
+      {{- with .Values.secrets }}
+        checksum/secrets: {{ toYaml . | sha256sum }}
+      {{- end }}
+
+    spec:
+      backoffLimit: {{ .Values.backoffLimit }}
+      template:
+        spec:
+          restartPolicy: {{ .Values.restartPolicy }}
+          containers:
+            - name: {{ include "app.fullname" . }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+              command: /bin/bash
+              args:
+                - -c
+                - |
+                  PGPASSWORD="${POSTGRES_PASSWORD}" pg_dump --host={{ include "app.fullname" . }} --port={{ .Values.service.port }} --username="${POSTGRES_USER}" --format=c "${POSTGRES_DB}" --data-only > "${POSTGRES_DB}_backup_$(date -Iseconds)" && apk --update add curl && curl -H "Accept: text/plain" --user "{{ .Values.backup.httpUser }}:${FIBR_BACKUP_PASSWORD}" --form method=POST --form file="@${POSTGRES_DB}_backup_$(date -Iseconds)" "{{ .Values.backup.httpUrl }}"
+
+              {{- if or .Values.config .Values.secrets }}
+              envFrom:
+              {{- if .Values.config }}
+                - configMapRef:
+                    name: {{ include "app.fullname" . }}
+              {{- end }}
+              {{- if .Values.secrets }}
+                - secretRef:
+                    name: {{ include "app.fullname" . }}
+              {{- end }}
+              {{- end }}
+
+              {{- with .Values.resources }}
+              resources:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+{{- end }}
