@@ -37,7 +37,7 @@ spec:
               args:
                 - -c
                 - |
-                  PGPASSWORD="${POSTGRES_PASSWORD}" pg_dump --host={{ include "app.fullname" . }} --port={{ .Values.service.port }} --username="${POSTGRES_USER}" --format=c "${POSTGRES_DB}" --data-only > "${POSTGRES_DB}_backup_$(date -Iseconds)" && apk --update add curl && curl -H "Accept: text/plain" --user "{{ .Values.backup.httpUser }}:${FIBR_BACKUP_PASSWORD}" --form method=POST --form file="@${POSTGRES_DB}_backup_$(date -Iseconds)" "{{ .Values.backup.httpUrl }}"
+                  PGPASSWORD="${POSTGRES_PASSWORD}" BACKUP_FILENAME="${POSTGRES_DB}_backup_$(date -Iseconds)" pg_dump --host={{ include "app.fullname" . }} --port={{ .Values.service.port }} --username="${POSTGRES_USER}" --format=c "${POSTGRES_DB}" --data-only > "${BACKUP_FILENAME}" && {{ .Values.backup.uploadCommand }} "${BACKUP_FILENAME}"
 
               {{- if or .Values.config .Values.secrets }}
               envFrom:

@@ -63,6 +63,4 @@ backup:
   failedJobsHistoryLimit: 2
   backoffLimit: 3
 
-  httpUrl: https://fibr.vibioh.fr/20ace1a0/
-  httpUser: app
-  httpPasswordEnv: FIBR_BACKUP_PASSWORD
+  uploadCommand: 'apk --update add curl && curl https://fibr.vibioh.fr/20ace1a0/ -H "Accept: text/plain" --user "fibr:${FIBR_BACKUP_PASSWORD}" --form method=POST --form'
