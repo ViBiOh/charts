@@ -66,4 +66,5 @@ backup:
   failedJobsHistoryLimit: 2
   backoffLimit: 3
 
-  uploadCommand: 'apk --update add curl && curl https://fibr.vibioh.fr/20ace1a0/ -H "Accept: text/plain" --user "fibr:${FIBR_BACKUP_PASSWORD}" --form method=POST --form'
+  # uploadCommand if what's called after pg_dump is success, it's append with the filename without space
+  uploadCommand: 'apk --update add curl && curl https://fibr.vibioh.fr/20ace1a0/ -H "Accept: text/plain" --user "fibr:${FIBR_BACKUP_PASSWORD}" --form method=POST --form file=@'
