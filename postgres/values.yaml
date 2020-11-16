@@ -30,7 +30,8 @@ secrets:
   POSTGRES_PASSWORD: changeme
 
 # strategy defines the rollout strategy for deployment
-strategy: {}
+strategy:
+  type: Recreate
 
 # resources requests and limits for defining the QoS
 resources:
