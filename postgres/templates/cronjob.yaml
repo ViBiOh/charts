@@ -7,10 +7,10 @@ metadata:
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
-  concurrencyPolicy: {{ .Values.concurrencyPolicy }}
-  schedule: {{ .Values.schedule | quote }}
-  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
-  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
+  concurrencyPolicy: {{ .Values.backup.concurrencyPolicy }}
+  schedule: {{ .Values.backup.schedule | quote }}
+  successfulJobsHistoryLimit: {{ .Values.backup.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.backup.failedJobsHistoryLimit }}
 
   jobTemplate:
     metadata:
@@ -23,10 +23,10 @@ spec:
       {{- end }}
 
     spec:
-      backoffLimit: {{ .Values.backoffLimit }}
+      backoffLimit: {{ .Values.backup.backoffLimit }}
       template:
         spec:
-          restartPolicy: {{ .Values.restartPolicy }}
+          restartPolicy: {{ .Values.backup.restartPolicy }}
           containers:
             - name: {{ include "app.fullname" . }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
