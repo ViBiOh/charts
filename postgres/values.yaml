@@ -17,6 +17,9 @@ config:
 # post used by postgres
 port: 5432
 
+# user that run container
+user: 70
+
 # persistentVolume for storing databases datas
 persistentvolume:
   enabled: true

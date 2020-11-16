@@ -78,7 +78,7 @@ spec:
           {{- end }}
 
           securityContext:
-            runAsGroup: 999
-            runAsUser: 999
+            runAsGroup: {{ .Values.user }}
+            runAsUser: {{ .Values.user }}
             runAsNonRoot: true
             allowPrivilegeEscalation: false
