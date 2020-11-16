@@ -56,7 +56,7 @@ backup:
   enabled: true
   restartPolicy: Never
   concurrencyPolicy: Forbid
-  schedule: "0 7 * * *"
+  schedule: "0 5 * * *"
 
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 2
