@@ -4,6 +4,7 @@ image:
   repository: vibioh/scratch
   tag: latest
   pullPolicy: Always
+  pullSecretName: dockerhub
 
 # init container of the deployment, if any
 init:

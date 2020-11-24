@@ -33,6 +33,11 @@ spec:
               image: "{{ $root.Values.image.repository }}:{{ $root.Values.image.tag | default $root.Chart.AppVersion }}"
               imagePullPolicy: {{ $root.Values.image.pullPolicy }}
 
+              {{- with $root.Values.image.pullSecretName }}
+              imagePullSecrets:
+                - name: {{ . }}
+              {{- end }}
+
               {{- if len .args }}
               args:
                 {{- toYaml .args | nindent 16 }}

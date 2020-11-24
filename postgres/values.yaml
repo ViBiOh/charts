@@ -4,6 +4,7 @@ image:
   repository: postgres
   tag: 12-alpine
   pullPolicy: Always
+  pullSecretName: dockerhub
 
 # podAnnotations placed on the pod
 podAnnotations: {}
