@@ -26,17 +26,18 @@ spec:
       template:
         spec:
           restartPolicy: {{ .Values.restartPolicy }}
+
+          {{- with .Values.image.pullSecretName }}
+          imagePullSecrets:
+            - name: {{ . }}
+          {{- end }}
+
           containers:
             {{- $root := . }}
             {{- range $root.Values.containers }}
             - name: {{ .name }}
               image: "{{ $root.Values.image.repository }}:{{ $root.Values.image.tag | default $root.Chart.AppVersion }}"
               imagePullPolicy: {{ $root.Values.image.pullPolicy }}
-
-              {{- with $root.Values.image.pullSecretName }}
-              imagePullSecrets:
-                - name: {{ . }}
-              {{- end }}
 
               {{- if len .args }}
               args:

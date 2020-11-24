@@ -30,15 +30,15 @@ spec:
       labels:
         {{- include "app.selectorLabels" . | nindent 8 }}
     spec:
+      {{- with .Values.image.pullSecretName }}
+      imagePullSecrets:
+        - name: {{ . }}
+      {{- end }}
+
       containers:
         - name: {{ include "app.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-
-          {{- with .Values.image.pullSecretName }}
-          imagePullSecrets:
-            - name: {{ . }}
-          {{- end }}
 
           {{- if or .Values.config .Values.secrets }}
           envFrom:

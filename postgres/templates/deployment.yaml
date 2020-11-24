@@ -37,15 +37,15 @@ spec:
             claimName: {{ include "app.fullname" . }}
       {{- end }}
 
+      {{- with .Values.image.pullSecretName }}
+      imagePullSecrets:
+        - name: {{ . }}
+      {{- end }}
+
       containers:
         - name: {{ include "app.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-
-          {{- with .Values.image.pullSecretName }}
-          imagePullSecrets:
-            - name: {{ . }}
-          {{- end }}
 
           {{- if or .Values.config .Values.secrets }}
           envFrom:
