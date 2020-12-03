@@ -30,10 +30,10 @@ init:
   resources:
     limits:
       cpu: 100m
-      memory: 50M
+      memory: 64Mi
     requests:
       cpu: 100m
-      memory: 50M
+      memory: 64Mi
 
 # port HTTP listened
 port: 1080
@@ -63,10 +63,10 @@ strategy: {}
 resources:
   limits:
     cpu: 100m
-    memory: 64M
+    memory: 64Mi
   requests:
     cpu: 100m
-    memory: 64M
+    memory: 64Mi
 
 # service configuration for the service
 service:

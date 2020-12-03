@@ -41,10 +41,10 @@ strategy:
 resources:
   limits:
     cpu: 100m
-    memory: 100M
+    memory: 128Mi
   requests:
     cpu: 100m
-    memory: 100M
+    memory: 128Mi
 
 # service configuration for the service
 service:
