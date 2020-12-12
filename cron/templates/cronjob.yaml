@@ -36,7 +36,7 @@ spec:
             {{- $root := . }}
             {{- range $root.Values.containers }}
             - name: {{ .name }}
-              image: "{{ $root.Values.image.repository }}:{{ $root.Values.image.tag | default $root.Chart.AppVersion }}"
+              image: "{{ $root.Values.image.repository }}"
               imagePullPolicy: {{ $root.Values.image.pullPolicy }}
 
               {{- if len .args }}

@@ -44,7 +44,7 @@ spec:
 
       containers:
         - name: {{ include "app.fullname" . }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
           {{- if or .Values.config .Values.secrets }}

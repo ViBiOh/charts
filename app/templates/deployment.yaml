@@ -37,7 +37,7 @@ spec:
 
       containers:
         - name: {{ include "app.fullname" . }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
           {{- if or .Values.config .Values.secrets }}
@@ -78,7 +78,7 @@ spec:
       {{- if .Values.init.enabled }}
       initContainers:
         - name: {{ include "app.fullname" . }}-init
-          image: "{{ .Values.init.repository }}:{{ .Values.init.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.init.repository }}"
           imagePullPolicy: {{ .Values.init.pullPolicy }}
           {{- with .Values.init.env }}
           env:
