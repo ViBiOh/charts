@@ -37,12 +37,6 @@ init:
 # port HTTP listened
 port: 1080
 
-# podAnnotations placed on the pod
-podAnnotations:
-  prometheus.io/scrape: "true"
-  prometheus.io/scheme: http
-  prometheus.io/port: "1080"
-
 # livenessProbePath is the path of liveness
 livenessProbePath: /health
 
@@ -71,6 +65,12 @@ resources:
 service:
   type: ClusterIP
   port: 80
+
+# prometheus enable prometheus scraping
+prometheus: true
+
+# linkerd enable linkerd injection
+linkerd: true
 
 # ingress configuration of the Traefik's ingress, if any
 ingress:

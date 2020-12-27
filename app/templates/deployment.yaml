@@ -18,8 +18,13 @@ spec:
   template:
     metadata:
       annotations:
-      {{- with .Values.podAnnotations }}
-        {{- toYaml . | nindent 8 }}
+      {{- if .Values.prometheus }}
+        prometheus.io/scrape: "true"
+        prometheus.io/scheme: http
+        prometheus.io/port: "{{ .Values.port }}"
+      {{- end }}
+      {{- if .Values.linkerd }}
+        linkerd.io/inject: enabled
       {{- end }}
       {{- with .Values.config }}
         checksum/config: {{ toYaml . | sha256sum }}

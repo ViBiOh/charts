@@ -2,14 +2,43 @@
 
 {{- $root := . -}}
 
-{{- $redirectMiddlewares := list -}}
+{{- $customMiddlewares := list -}}
 {{- if .Values.ingress.redirect }}
-  {{- $redirectMiddleware := printf "%s-%s-%s" .Release.Namespace (include "app.fullname" $root) "redirect@kubernetescrd" -}}
-  {{- $redirectMiddlewares = append $redirectMiddlewares $redirectMiddleware -}}
+  {{- $redirectMiddleware := printf "%s-%s-%s" .Release.Namespace (include "app.fullname" .) "redirect@kubernetescrd" -}}
+  {{- $customMiddlewares = append $customMiddlewares $redirectMiddleware -}}
+{{- end -}}
+{{- if .Values.linkerd }}
+  {{- $linkerdMiddleware := printf "%s-%s-%s" .Release.Namespace (include "app.fullname" .) "l5d@kubernetescrd" -}}
+  {{- $customMiddlewares = append $customMiddlewares $linkerdMiddleware -}}
 {{- end -}}
 
-{{- $httpMiddlewares := concat $redirectMiddlewares .Values.ingress.http_middlewares -}}
-{{- $httpsMiddlewares := concat $redirectMiddlewares .Values.ingress.https_middlewares -}}
+{{- $httpMiddlewares := concat $customMiddlewares .Values.ingress.http_middlewares -}}
+{{- $httpsMiddlewares := concat $customMiddlewares .Values.ingress.https_middlewares -}}
+
+{{- if .Values.linkerd }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: "{{ include "app.fullname" . }}-l5d"
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "{{ include "app.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}"
+{{- end }}
+
+{{- if .Values.ingress.redirect }}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ include "app.fullname"  }}-redirect
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  redirectRegex:
+    regex: {{ .Values.ingress.redirect.regex }}
+    replacement: {{ .Values.ingress.redirect.replacement }}
+{{- end }}
 
 ---
 apiVersion: networking.k8s.io/v1
