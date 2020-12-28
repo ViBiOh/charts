@@ -73,15 +73,20 @@ kind: Ingress
 metadata:
   name: {{ include "app.fullname" . }}-https
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    traefik.ingress.kubernetes.io/router.entrypoints: "web"
     {{- with $httpsMiddlewares }}
     traefik.ingress.kubernetes.io/router.middlewares: {{ include "app.joinComma" . }}
     {{- end }}
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.tls.certresolver: default
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.clusterIssuer }}
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
+  tls:
+    {{- range .Values.ingress.hosts }}
+    - hosts:
+        - {{ . }}
+      secretName: "{{ include "app.fullname" $root }}-tls-{{ . | sha256sum }}"
+    {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
     - host: "{{ . }}"

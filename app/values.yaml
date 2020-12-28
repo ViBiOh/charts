@@ -75,6 +75,7 @@ linkerd: false
 # ingress configuration of the Traefik's ingress, if any
 ingress:
   enabled: false
+  clusterIssuer: letsencrypt
   hosts:
     - example.localhost
   http_middlewares:
