@@ -73,7 +73,7 @@ kind: Ingress
 metadata:
   name: {{ include "app.fullname" . }}-https
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: "web"
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     {{- with $httpsMiddlewares }}
     traefik.ingress.kubernetes.io/router.middlewares: {{ include "app.joinComma" . }}
     {{- end }}
@@ -85,7 +85,7 @@ spec:
     {{- range .Values.ingress.hosts }}
     - hosts:
         - {{ . }}
-      secretName: "{{ include "app.fullname" $root }}-tls-{{ . | sha256sum }}"
+      secretName: "{{ include "app.fullname" $root }}-tls-{{ . | sha256sum | trunc 6 }}"
     {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
