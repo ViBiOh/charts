@@ -23,9 +23,6 @@ spec:
         prometheus.io/scheme: http
         prometheus.io/port: "{{ .Values.port }}"
       {{- end }}
-      {{- if .Values.linkerd }}
-        linkerd.io/inject: enabled
-      {{- end }}
       {{- with .Values.config }}
         checksum/config: {{ toYaml . | sha256sum }}
       {{- end }}

@@ -7,24 +7,9 @@
   {{- $redirectMiddleware := printf "%s-%s-%s" .Release.Namespace (include "app.fullname" .) "redirect@kubernetescrd" -}}
   {{- $customMiddlewares = append $customMiddlewares $redirectMiddleware -}}
 {{- end -}}
-{{- if .Values.linkerd }}
-  {{- $linkerdMiddleware := printf "%s-%s-%s" .Release.Namespace (include "app.fullname" .) "l5d@kubernetescrd" -}}
-  {{- $customMiddlewares = append $customMiddlewares $linkerdMiddleware -}}
-{{- end -}}
 
 {{- $httpMiddlewares := concat $customMiddlewares .Values.ingress.http_middlewares -}}
 {{- $httpsMiddlewares := concat $customMiddlewares .Values.ingress.https_middlewares -}}
-
-{{- if .Values.linkerd }}
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: "{{ include "app.fullname" . }}-l5d"
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "{{ include "app.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}"
-{{- end }}
 
 {{- if .Values.ingress.redirect }}
 ---

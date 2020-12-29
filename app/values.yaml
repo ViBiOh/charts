@@ -69,9 +69,6 @@ service:
 # prometheus enable prometheus scraping
 prometheus: true
 
-# linkerd enable linkerd injection
-linkerd: true
-
 # ingress configuration of the Traefik's ingress, if any
 ingress:
   enabled: false
