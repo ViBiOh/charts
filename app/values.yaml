@@ -70,7 +70,7 @@ service:
 prometheus: true
 
 # linkerd enable linkerd injection
-linkerd: false
+linkerd: true
 
 # ingress configuration of the Traefik's ingress, if any
 ingress:
