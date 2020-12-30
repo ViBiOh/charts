@@ -5,4 +5,4 @@ description: A simple postgres instance
 
 type: application
 version: 0.0.17
-appVersion: "12"
+appVersion: "13"
