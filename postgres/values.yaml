@@ -3,7 +3,8 @@
 image:
   repository: postgres:13-alpine
   pullPolicy: Always
-  pullSecretName: dockerhub
+  pullSecretNames:
+    - dockerhub
 
 # podAnnotations placed on the pod
 podAnnotations: {}

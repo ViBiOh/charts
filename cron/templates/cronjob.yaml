@@ -27,9 +27,11 @@ spec:
         spec:
           restartPolicy: {{ .Values.restartPolicy }}
 
-          {{- with .Values.image.pullSecretName }}
+          {{- with .Values.image.pullSecretNames }}
           imagePullSecrets:
+            {{- range . }}
             - name: {{ . }}
+            {{- end }}
           {{- end }}
 
           containers:

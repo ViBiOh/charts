@@ -3,7 +3,8 @@
 image:
   repository: vibioh/scratch
   pullPolicy: Always
-  pullSecretName: dockerhub
+  pullSecretNames:
+    - dockerhub
 
 restartPolicy: Never
 concurrencyPolicy: Forbid

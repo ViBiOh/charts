@@ -29,6 +29,7 @@ spec:
       {{- end }}
       labels:
         {{- include "app.selectorLabels" . | nindent 8 }}
+
     spec:
       {{- if .Values.persistentvolume.enabled }}
       volumes:
@@ -37,9 +38,11 @@ spec:
             claimName: {{ include "app.fullname" . }}
       {{- end }}
 
-      {{- with .Values.image.pullSecretName }}
+      {{- with .Values.image.pullSecretNames }}
       imagePullSecrets:
+        {{- range . }}
         - name: {{ . }}
+        {{- end }}
       {{- end }}
 
       containers:

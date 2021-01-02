@@ -31,10 +31,13 @@ spec:
       {{- end }}
       labels:
         {{- include "app.selectorLabels" . | nindent 8 }}
+
     spec:
-      {{- with .Values.image.pullSecretName }}
+      {{- with .Values.image.pullSecretNames }}
       imagePullSecrets:
+        {{- range . }}
         - name: {{ . }}
+        {{- end }}
       {{- end }}
 
       containers:
