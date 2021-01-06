@@ -50,8 +50,20 @@ config: {}
 # secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
 secrets: {}
 
+# volumes array for deployment
+volumes: []
+
+# volumeMounts array for main container
+volumeMounts: []
+
 # strategy defines the rollout strategy for deployment
 strategy: {}
+
+# affinity for the deployment
+affinity: {}
+
+# securityContext for the main container
+securityContext: {}
 
 # resources requests and limits for defining the QoS
 resources:
