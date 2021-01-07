@@ -68,10 +68,10 @@ securityContext: {}
 # resources requests and limits for defining the QoS
 resources:
   limits:
-    cpu: 100m
+    cpu: 200m
     memory: 64Mi
   requests:
-    cpu: 100m
+    cpu: 200m
     memory: 64Mi
 
 # service configuration for the service
