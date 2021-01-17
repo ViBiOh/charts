@@ -3,7 +3,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ include "app.fullname" . }}
+  name: {{ include "app.fullname" . }}-backup
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
@@ -28,7 +28,7 @@ spec:
         spec:
           restartPolicy: {{ .Values.backup.restartPolicy }}
           containers:
-            - name: {{ include "app.fullname" . }}
+            - name: {{ include "app.fullname" . }}-backup
               image: "{{ .Values.image.repository }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
 
