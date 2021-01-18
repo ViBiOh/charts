@@ -29,7 +29,6 @@ init:
   # resources requests and limits for defining the QoS
   resources:
     limits:
-      cpu: 100m
       memory: 64Mi
     requests:
       cpu: 100m
@@ -68,7 +67,6 @@ securityContext: {}
 # resources requests and limits for defining the QoS
 resources:
   limits:
-    cpu: 200m
     memory: 64Mi
   requests:
     cpu: 200m

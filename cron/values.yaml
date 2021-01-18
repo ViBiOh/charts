@@ -27,7 +27,6 @@ secrets: {}
 # resources are the requests and limits for defining the QoS
 resources:
   limits:
-    cpu: 100m
     memory: 64Mi
   requests:
     cpu: 100m
