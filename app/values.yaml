@@ -59,7 +59,15 @@ volumeMounts: []
 strategy: {}
 
 # affinity for the deployment
-affinity: {}
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: NotIn
+              values:
+                - walter
 
 # securityContext for the main container
 securityContext: {}

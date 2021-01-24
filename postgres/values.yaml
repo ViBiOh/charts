@@ -37,6 +37,17 @@ secrets:
 strategy:
   type: Recreate
 
+# affinity for the deployment
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: NotIn
+              values:
+                - walter
+
 # resources requests and limits for defining the QoS
 resources:
   limits:
