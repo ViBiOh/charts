@@ -18,10 +18,10 @@ spec:
   template:
     metadata:
       annotations:
-      {{- if .Values.prometheus }}
+      {{- with .Values.prometheus }}
         prometheus.io/scrape: "true"
         prometheus.io/scheme: http
-        prometheus.io/port: "{{ .Values.port }}"
+        prometheus.io/port: "{{ .port }}"
       {{- end }}
       {{- with .Values.config }}
         checksum/config: {{ toYaml . | sha256sum }}

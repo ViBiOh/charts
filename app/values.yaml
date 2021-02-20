@@ -78,7 +78,8 @@ service:
   port: 80
 
 # prometheus enable prometheus scraping
-prometheus: true
+prometheus:
+  port: 9090
 
 # ingress configuration of the Traefik's ingress, if any
 ingress:
