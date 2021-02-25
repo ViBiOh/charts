@@ -49,6 +49,7 @@ spec:
     messageTemplate: "ci(flux): [skip ci] Update image from automation"
 {{- end }}
 
+{{- if .Values.images }}
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Receiver
@@ -65,3 +66,4 @@ spec:
     - kind: ImageRepository
       name: {{ include "app.fullname" $root }}-{{ .id }}
     {{- end }}
+{{- end }}

@@ -25,7 +25,7 @@ receiver:
   # token used for checking incoming requests
   token: webhook-token
 
-# images to check automation for
-images:
-  - id: api
-    name: ViBiOh/scratch
+# images to check automation for {id, name}
+images: []
+  # - id: api
+  #   name: ViBiOh/scratch
