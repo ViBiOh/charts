@@ -35,8 +35,6 @@ spec:
     - kind: Kustomization
       name: {{ include "app.fullname" . }}
 
-
-{{- if eq .Values.repository.type "github" }}
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Provider
@@ -49,4 +47,3 @@ spec:
   address: https://{{ .Values.repository.type }}.com/{{ .Values.repository.name }}
   secretRef:
     name: {{ .Values.repository.token }}
-{{- end }}
