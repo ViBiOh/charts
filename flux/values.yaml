@@ -1,17 +1,31 @@
 ---
 
+# repository definition for flux
 repository:
   # type defined where the repository in stored: github or gitlab
   type: github
+
+  # name of the repository cloned
   name: ViBiOh/scratch
+
+  # default branch for both cloning and image update
   branch: main
+
+  # path of manifests for Kustomization
   path : ./infra
+
+  # secret used for ssh-cloning
   secret: github-ssh
+
+  # token for API requests
   token: github-token
 
+# receiver allows you to receive incoming webhooks
 receiver:
+  # token used for checking incoming requests
   token: webhook-token
 
+# images to check automation for
 images:
   - id: api
     name: ViBiOh/scratch

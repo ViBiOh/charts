@@ -3,6 +3,8 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Receiver
 metadata:
   name: {{ include "app.fullname" . }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.repository.type }}
   events:
@@ -23,6 +25,8 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
   name: {{ include "app.fullname" . }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
 spec:
   providerRef:
     name: {{ include "app.fullname" . }}
@@ -38,6 +42,8 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Provider
 metadata:
   name: {{ include "app.fullname" . }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.repository.type }}
   address: https://{{ .Values.repository.type }}.com/{{ .Values.repository.name }}
