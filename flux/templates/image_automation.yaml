@@ -1,0 +1,59 @@
+{{- $root := . -}}
+
+{{- range .Values.images }}
+---
+apiVersion: image.toolkit.fluxcd.io/v1alpha1
+kind: ImageRepository
+metadata:
+  name: {{ include "app.fullname" $root }}-{{ .id }}
+spec:
+  interval: 60m
+  image: {{ .name }}
+
+---
+apiVersion: image.toolkit.fluxcd.io/v1alpha1
+kind: ImagePolicy
+metadata:
+  name: {{ include "app.fullname" $root }}-{{ .id }}
+spec:
+  imageRepositoryRef:
+    name: {{ include "app.fullname" $root }}-{{ .id }}
+  filterTags:
+    pattern: ^[0-9]{12}
+  policy:
+    numerical:
+      order: asc
+
+---
+apiVersion: image.toolkit.fluxcd.io/v1alpha1
+kind: ImageUpdateAutomation
+metadata:
+  name: {{ include "app.fullname" $root }}-{{ .id }}
+spec:
+  interval: 60m
+  checkout:
+    branch: {{ $root.Values.repository.branch }}
+    gitRepositoryRef:
+      name: {{ include "app.fullname" $root }}
+  update:
+    strategy: Setters
+  commit:
+    authorName: Flux
+    authorEmail: flux@vibioh.fr
+    messageTemplate: "ci(flux): [skip ci] Update image from automation"
+{{- end }}
+
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Receiver
+metadata:
+  name: {{ include "app.fullname" $root }}-image
+spec:
+  type: generic-hmac
+  secretRef:
+    name: {{ .Values.receiver.token }}
+  resources:
+    {{- range .Values.images }}
+    - kind: ImageRepository
+      name: {{ include "app.fullname" $root }}-{{ .id }}
+    {{- end }}

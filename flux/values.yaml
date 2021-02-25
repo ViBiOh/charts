@@ -1,0 +1,17 @@
+---
+
+repository:
+  # type defined where the repository in stored: github or gitlab
+  type: github
+  name: ViBiOh/scratch
+  branch: main
+  path : ./infra
+  secret: github-ssh
+  token: github-token
+
+receiver:
+  token: webhook-token
+
+images:
+  - id: api
+    name: ViBiOh/scratch

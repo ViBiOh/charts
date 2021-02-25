@@ -1,0 +1,46 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Receiver
+metadata:
+  name: {{ include "app.fullname" . }}
+spec:
+  type: {{ .Values.repository.type }}
+  events:
+  {{- if eq .Values.repository.type "github" }}
+    - ping
+    - push
+  {{- else }}
+    - Push Hook
+  {{- end }}
+  secretRef:
+    name: {{ .Values.receiver.token }}
+  resources:
+    - kind: GitRepository
+      name: {{ include "app.fullname" . }}
+
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Alert
+metadata:
+  name: {{ include "app.fullname" . }}
+spec:
+  providerRef:
+    name: {{ include "app.fullname" . }}
+  eventSeverity: info
+  eventSources:
+    - kind: Kustomization
+      name: {{ include "app.fullname" . }}
+
+
+{{- if eq .Values.repository.type "github" }}
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Provider
+metadata:
+  name: {{ include "app.fullname" . }}
+spec:
+  type: {{ .Values.repository.type }}
+  address: https://{{ .Values.repository.type }}.com/{{ .Values.repository.name }}
+  secretRef:
+    name: {{ .Values.repository.token }}
+{{- end }}
