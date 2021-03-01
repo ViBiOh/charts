@@ -62,7 +62,10 @@ strategy: {}
 affinity: {}
 
 # securityContext for the main container
-securityContext: {}
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
 
 # resources requests and limits for defining the QoS
 resources:
