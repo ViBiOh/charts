@@ -1,7 +1,8 @@
 ---
 # image is the configuration of image management
 image:
-  repository: vibioh/scratch
+  name: vibioh/scratch
+  tag: latest
   pullPolicy: Always
   pullSecretNames:
     - dockerhub
@@ -11,7 +12,8 @@ init:
   enabled: false
 
   # configuration of init_container image management
-  repository: vibioh/scratch
+  name: vibioh/scratch
+  tag: latest
   pullPolicy: Always
 
   # command to run inside init_container

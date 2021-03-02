@@ -54,7 +54,7 @@ spec:
 
       containers:
         - name: {{ include "app.fullname" . }}
-          image: "{{ .Values.image.repository }}"
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
           {{- if or .Values.config .Values.secrets }}
@@ -112,7 +112,7 @@ spec:
       {{- if .Values.init.enabled }}
       initContainers:
         - name: {{ include "app.fullname" . }}-init
-          image: "{{ .Values.init.repository }}"
+          image: "{{ .Values.init.name }}:{{ .Values.init.tag }}"
           imagePullPolicy: {{ .Values.init.pullPolicy }}
           {{- with .Values.init.env }}
           env:
