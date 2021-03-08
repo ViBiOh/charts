@@ -19,20 +19,22 @@ spec:
 
   template:
     metadata:
+      labels:
+        {{- include "app.selectorLabels" . | nindent 8 }}
+
       annotations:
       {{- with .Values.prometheus }}
         prometheus.io/scrape: "true"
         prometheus.io/scheme: http
         prometheus.io/port: "{{ .port }}"
       {{- end }}
+
       {{- with .Values.config }}
         checksum/config: {{ toYaml . | sha256sum }}
       {{- end }}
       {{- with .Values.secrets }}
         checksum/secrets: {{ toYaml . | sha256sum }}
       {{- end }}
-      labels:
-        {{- include "app.selectorLabels" . | nindent 8 }}
 
     spec:
       {{- with .Values.image.pullSecretNames }}
@@ -69,10 +71,14 @@ spec:
           {{- end }}
           {{- end }}
 
+          {{- if or .Values.port .Values.prometheus }}
           ports:
+            {{- with .Values.port }}
             - name: http
-              containerPort: {{ .Values.port }}
+              containerPort: {{ . }}
               protocol: TCP
+            {{- end }}
+
             {{- with .Values.prometheus }}
               {{ if ne .port $root.Values.port }}
             - name: prom
@@ -80,6 +86,7 @@ spec:
               protocol: TCP
               {{- end }}
             {{- end }}
+          {{- end }}
 
           {{- with .Values.volumeMounts }}
           volumeMounts:
@@ -114,6 +121,7 @@ spec:
         - name: {{ include "app.fullname" . }}-init
           image: "{{ .Values.init.name }}:{{ .Values.init.tag }}"
           imagePullPolicy: {{ .Values.init.pullPolicy }}
+
           {{- with .Values.init.env }}
           env:
             {{- range $key, $value := . }}
@@ -121,15 +129,18 @@ spec:
               value: {{ $value | quote }}
             {{- end }}
           {{- end }}
+
           {{- if .Values.init.secrets }}
           envFrom:
             - secretRef:
                 name: {{ include "app.fullname" . }}-init
           {{- end }}
+
           {{- if .Values.init.command }}
           command:
             {{- toYaml .Values.init.command | nindent 12 }}
           {{- end }}
+
           {{- if .Values.init.resources }}
           resources:
             {{- toYaml .Values.init.resources | nindent 12 }}
