@@ -42,6 +42,10 @@ spec:
               image: "{{ $root.Values.image.name }}:{{ $root.Values.image.tag }}"
               imagePullPolicy: {{ $root.Values.image.pullPolicy }}
 
+              {{- with .command }}
+              command: {{ . | quote }}
+              {{- end }}
+
               {{- if len .args }}
               args:
                 {{- toYaml .args | nindent 16 }}

@@ -17,7 +17,8 @@ backoffLimit: 3
 
 containers:
   - name: job
-    args: ["echo", "Hello world!"]
+    command: ""
+    args: []
 
 # config is the map of env var passed to the pod
 config: {}
