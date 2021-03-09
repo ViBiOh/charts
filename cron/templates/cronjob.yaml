@@ -36,9 +36,10 @@ spec:
 
           containers:
             {{- $root := . }}
+
             {{- range $root.Values.containers }}
             - name: {{ .name }}
-              image: "{{ $root.Values.image.repository }}"
+              image: "{{ $root.Values.image.name }}:{{ $root.Values.image.tag }}"
               imagePullPolicy: {{ $root.Values.image.pullPolicy }}
 
               {{- if len .args }}

@@ -1,7 +1,8 @@
 ---
 # image is the configuration of image management
 image:
-  repository: vibioh/scratch
+  name: vibioh/scratch
+  tag: latest
   pullPolicy: Always
   pullSecretNames:
     - dockerhub
