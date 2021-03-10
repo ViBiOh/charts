@@ -46,9 +46,9 @@ spec:
               command: {{ . | quote }}
               {{- end }}
 
-              {{- if len .args }}
+              {{- with .args }}
               args:
-                {{- toYaml .args | nindent 16 }}
+                {{- toYaml . | nindent 16 }}
               {{- end }}
 
               {{- if or $root.Values.config $root.Values.secrets }}
