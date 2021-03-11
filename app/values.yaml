@@ -45,6 +45,9 @@ livenessProbePath: /health
 # readinessProbePath is the path of readiness
 readinessProbePath: /health
 
+# terminationGracePeriodSeconds is the time waiting before SIGKILL
+terminationGracePeriodSeconds: 60
+
 # config map created and passed to the pod as a ref
 config: {}
 

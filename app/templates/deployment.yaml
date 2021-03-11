@@ -106,6 +106,10 @@ spec:
               port: http
           {{- end }}
 
+          {{- with .Values.terminationGracePeriodSeconds }}
+          terminationGracePeriodSeconds: {{ . }}
+          {{- end }}
+
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
