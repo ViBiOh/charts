@@ -54,6 +54,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
 
+      {{- with .Values.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ . }}
+      {{- end }}
+
       containers:
         - name: {{ include "app.fullname" . }}
           image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
@@ -104,10 +108,6 @@ spec:
             httpGet:
               path: {{ . | quote }}
               port: http
-          {{- end }}
-
-          {{- with .Values.terminationGracePeriodSeconds }}
-          terminationGracePeriodSeconds: {{ . }}
           {{- end }}
 
           {{- with .Values.resources }}
