@@ -26,63 +26,70 @@ spec:
 {{- end }}
 
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "app.fullname" . }}
+spec:
+  secretName: {{ include "app.fullname" . }}-tls
+  dnsNames:
+  {{- range .Values.ingress.hosts }}
+    - {{ . }}
+  {{- end }}
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt
+    group: cert-manager.io
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
   name: {{ include "app.fullname" . }}-http
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: "web"
-    {{- with $httpMiddlewares }}
-    traefik.ingress.kubernetes.io/router.middlewares: {{ include "app.joinComma" . }}
-    {{- end }}
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
-  rules:
+  entryPoints:
+    - web
+  {{- with $httpMiddlewares }}
+  middlewares:
+    {{- range . }}
+    - name: {{ . }}
+    {{- end }}
+  {{- end }}
+  routes:
     {{- range .Values.ingress.hosts }}
-    - host: "{{ . }}"
-      http:
-        paths:
-          - path: "/"
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ include "app.fullname" $root }}
-                port:
-                  number: {{ $root.Values.service.port }}
+    - match: Host(`{{ . }}`)
+      kind: Rule
+      services:
+        - name: {{ include "app.fullname" $root }}
+          port: {{ $root.Values.service.port }}
     {{- end }}
 
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
   name: {{ include "app.fullname" . }}-https
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-    {{- with $httpsMiddlewares }}
-    traefik.ingress.kubernetes.io/router.middlewares: {{ include "app.joinComma" . }}
-    {{- end }}
-    cert-manager.io/cluster-issuer: {{ .Values.ingress.clusterIssuer }}
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
-  tls:
-    {{- range .Values.ingress.hosts }}
-    - hosts:
-        - {{ . }}
-      secretName: "{{ include "app.fullname" $root }}-tls-{{ . | sha256sum | trunc 6 }}"
+  entryPoints:
+    - websecure
+  {{- with $httpsMiddlewares }}
+  middlewares:
+    {{- range . }}
+    - name: {{ . }}
     {{- end }}
-  rules:
+  {{- end }}
+  tls:
+    secretName: {{ include "app.fullname" . }}-tls
+  routes:
     {{- range .Values.ingress.hosts }}
-    - host: "{{ . }}"
-      http:
-        paths:
-          - path: "/"
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ include "app.fullname" $root }}
-                port:
-                  number: {{ $root.Values.service.port }}
+    - match: Host(`{{ . }}`)
+      kind: Rule
+      services:
+        - name: {{ include "app.fullname" $root }}
+          port: {{ $root.Values.service.port }}
     {{- end }}
 {{- end -}}
