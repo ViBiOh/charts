@@ -64,6 +64,6 @@ spec:
   resources:
     {{- range .Values.images }}
     - kind: ImageRepository
-      name: {{ include "app.fullname" . }}-{{ .id }}
+      name: {{ include "app.fullname" $root }}-{{ .id }}
     {{- end }}
 {{- end }}
