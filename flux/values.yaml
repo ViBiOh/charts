@@ -1,5 +1,4 @@
 ---
-
 # repository definition for flux
 repository:
   # type defined where the repository in stored: github or gitlab
@@ -12,7 +11,7 @@ repository:
   branch: main
 
   # path of manifests for Kustomization
-  path : ./infra
+  path: ./infra
 
   # secret used for ssh-cloning
   secret: github-ssh
@@ -26,6 +25,7 @@ receiver:
   token: webhook-token
 
 # images to check automation for {id, name}
-images: []
+images:
+  []
   # - id: api
   #   name: ViBiOh/scratch

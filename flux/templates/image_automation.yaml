@@ -27,34 +27,34 @@ spec:
   policy:
     numerical:
       order: asc
+{{- end }}
 
+{{- if .Values.images }}
 ---
 apiVersion: image.toolkit.fluxcd.io/v1alpha1
 kind: ImageUpdateAutomation
 metadata:
-  name: {{ include "app.fullname" $root }}-{{ .id }}
+  name: {{ include "app.fullname" . }}-{{ .id }}
   labels:
-    {{- include "app.labels" $root | nindent 4 }}
+    {{- include "app.labels" . | nindent 4 }}
 spec:
   interval: 60m
   checkout:
-    branch: {{ $root.Values.repository.branch }}
+    branch: {{ .Values.repository.branch }}
     gitRepositoryRef:
-      name: {{ include "app.fullname" $root }}
+      name: {{ include "app.fullname" . }}
   update:
     strategy: Setters
   commit:
     authorName: Flux
     authorEmail: flux@vibioh.fr
     messageTemplate: "ci(flux): [skip ci] Update image from automation"
-{{- end }}
 
-{{- if .Values.images }}
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Receiver
 metadata:
-  name: {{ include "app.fullname" $root }}-image
+  name: {{ include "app.fullname" . }}-image
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
@@ -64,6 +64,6 @@ spec:
   resources:
     {{- range .Values.images }}
     - kind: ImageRepository
-      name: {{ include "app.fullname" $root }}-{{ .id }}
+      name: {{ include "app.fullname" . }}-{{ .id }}
     {{- end }}
 {{- end }}
