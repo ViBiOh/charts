@@ -51,16 +51,16 @@ metadata:
 spec:
   entryPoints:
     - web
-  {{- with $httpMiddlewares }}
-  middlewares:
-    {{- range . }}
-    - name: {{ . }}
-    {{- end }}
-  {{- end }}
   routes:
     {{- range .Values.ingress.hosts }}
     - match: Host(`{{ . }}`)
       kind: Rule
+      {{- with $httpMiddlewares }}
+      middlewares:
+        {{- range . }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
       services:
         - name: {{ include "app.fullname" $root }}
           port: {{ $root.Values.service.port }}
@@ -76,18 +76,18 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  {{- with $httpsMiddlewares }}
-  middlewares:
-    {{- range . }}
-    - name: {{ . }}
-    {{- end }}
-  {{- end }}
   tls:
     secretName: {{ include "app.fullname" . }}-tls
   routes:
     {{- range .Values.ingress.hosts }}
     - match: Host(`{{ . }}`)
       kind: Rule
+      {{- with $httpsMiddlewares }}
+      middlewares:
+        {{- range . }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
       services:
         - name: {{ include "app.fullname" $root }}
           port: {{ $root.Values.service.port }}
