@@ -96,7 +96,7 @@ spec:
       services:
         - name: {{ include "app.fullname" $root }}
           port: {{ $root.Values.service.port }}
-          {{- if $root.canary.enabled }}
+          {{- if $root.Values.canary.enabled }}
           kind: TraefikService
           {{- end }}
     {{- end }}
