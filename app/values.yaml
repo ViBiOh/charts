@@ -89,6 +89,13 @@ service:
 prometheus:
   port: 9090
 
+# canary enable canary deployment
+canary:
+  enabled: false
+  check:
+    host: vibioh.fr
+    path: /
+
 # ingress configuration of the Traefik's ingress, if any
 ingress:
   enabled: false

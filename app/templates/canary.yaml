@@ -1,0 +1,53 @@
+{{- if .Values.canary.enabled }}
+---
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: {{ include "app.fullname" . }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  provider: traefik
+
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "app.fullname" . }}
+
+  autoscalerRef:
+    apiVersion: autoscaling/v2beta2
+    kind: HorizontalPodAutoscaler
+    name: {{ include "app.fullname" . }}
+
+  progressDeadlineSeconds: 60
+
+  service:
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.port }}
+
+  analysis:
+    interval: 10s
+    threshold: 10
+    maxWeight: 50
+    stepWeight: 10
+
+    metrics:
+      - name: request-success-rate
+        interval: 1m
+        thresholdRange:
+          min: 99
+      - name: request-duration
+        interval: 1m
+        thresholdRange:
+          max: 500
+
+    webhooks:
+      - name: load-test
+        type: rollout
+        url: http://loadtester.traefik
+        timeout: 5s
+        metadata:
+          type: cmd
+          cmd: "hey -c 2 -q 10 -z 10s -t 5 -host {{ .Values.canary.check.host }} http://traefik.traefik{{ .Values.canary.check.path }}"
+          logCmdOutput: "true"
+{{- end }}
