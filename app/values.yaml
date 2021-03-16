@@ -92,9 +92,7 @@ prometheus:
 # canary enable canary deployment
 canary:
   enabled: false
-  check:
-    host: vibioh.fr
-    path: /
+  url: https://vibioh.fr
 
 # ingress configuration of the Traefik's ingress, if any
 ingress:

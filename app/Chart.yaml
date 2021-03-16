@@ -4,5 +4,5 @@ name: app
 description: An app for the web
 
 type: application
-version: 0.0.55
+version: 0.0.56
 appVersion: latest

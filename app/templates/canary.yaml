@@ -44,10 +44,6 @@ spec:
     webhooks:
       - name: load-test
         type: rollout
-        url: http://loadtester.traefik
+        url: http://vegetaas.default/?url={{ urlquery .Values.canary.url }}&rps=2&duration=10s
         timeout: 5s
-        metadata:
-          type: cmd
-          cmd: "hey -c 2 -q 10 -z 10s -t 5 -host {{ .Values.canary.check.host }} http://traefik.traefik{{ .Values.canary.check.path }}"
-          logCmdOutput: "true"
 {{- end }}
