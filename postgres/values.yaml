@@ -55,8 +55,9 @@ podDisruption:
   enabled: true
   minAvailable: 1
 
+# pgBouncer configuration for the connection pooling, not ready for ARM
 pgBouncer:
-  enabled: true
+  enabled: false
   version: 1.15.0
   port: 6543
 
