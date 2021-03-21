@@ -46,6 +46,54 @@ spec:
       {{- end }}
 
       containers:
+        {{- if or .Values.pgBouncer.enabled }}
+        - name: pgbouncer
+          image: edoburu/pgbouncer:{{ .Values.pgBouncer.version }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: DB_HOST
+              value: localhost
+            - name: DB_NAME
+              value: {{ .Values.config.POSTGRES_DB }}
+            - name: DB_USER
+              value: {{ .Values.config.POSTGRES_USER }}
+            - name: LISTEN_PORT
+              value: {{ .Values.pgBouncer.port }}
+            - name: POOL_MODE
+              value: session
+            - name: SERVER_RESET_QUERY
+              value: DISCARD ALL
+
+          envFrom:
+          {{- if .Values.secrets }}
+            - secretRef:
+                name: {{ include "app.fullname" . }}
+          {{- end }}
+
+          ports:
+            - name: pgbouncer
+              containerPort: {{ .Values.pgBouncer.port }}
+              protocol: TCP
+
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.pgBouncer.port }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.pgBouncer.port }}
+
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ['all']
+        {{- end }}
+
         - name: {{ include "app.fullname" . }}
           image: "{{ .Values.image.repository }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -72,13 +120,13 @@ spec:
             - name: postgres
               containerPort: {{ .Values.port }}
               protocol: TCP
+
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.port }}
           readinessProbe:
-            exec:
-              command:
-                - nc
-                - -v
-                - localhost
-                - "5432"
+            tcpSocket:
+              port: {{ .Values.port }}
 
           {{- with .Values.resources }}
           resources:

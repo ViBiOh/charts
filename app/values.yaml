@@ -109,8 +109,8 @@ ingress:
   #   regex: ^https?://www.example.localhost(.*)
   #   replacement: https://example.localhost${1}
 
-# pod_disruption configuration for the pod_disruption_budget, if any
-pod_disruption:
+# podDisruption configuration for the podDisruption_budget, if any
+podDisruption:
   enabled: true
   minAvailable: 1
 
