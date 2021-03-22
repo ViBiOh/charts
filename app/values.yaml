@@ -87,7 +87,9 @@ service:
 
 # prometheus enable prometheus scraping
 prometheus:
+  enabled: true
   port: 9090
+  path: /metrics
 
 # canary enable canary deployment
 canary:
