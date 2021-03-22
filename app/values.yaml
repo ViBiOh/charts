@@ -39,11 +39,12 @@ init:
 # port HTTP listened
 port: 1080
 
-# livenessProbePath is the path of liveness
-livenessProbePath: /health
-
-# readinessProbePath is the path of readiness
-readinessProbePath: /health
+# probes for enabling and configuring probes
+probes:
+  enabled: true
+  initialDelaySeconds: 10
+  liveness: /health
+  readiness: /health
 
 # terminationGracePeriodSeconds is the time waiting before SIGKILL
 terminationGracePeriodSeconds: 60

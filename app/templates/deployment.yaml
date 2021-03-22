@@ -98,17 +98,23 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
 
-          {{- with .Values.livenessProbePath }}
+          {{- if .Values.probes.enabled }}
+          {{- with .Values.probes }}
+          {{- if .liveness }}
           livenessProbe:
+            initialDelaySeconds: {{ .initialDelaySeconds }}
             httpGet:
-              path: {{ . | quote }}
+              path: {{ .liveness | quote }}
               port: http
           {{- end }}
-          {{- with .Values.readinessProbePath }}
+          {{- if .readiness }}
           readinessProbe:
+            initialDelaySeconds: {{ .initialDelaySeconds }}
             httpGet:
-              path: {{ . | quote }}
+              path: {{ .readiness | quote }}
               port: http
+          {{- end }}
+          {{- end }}
           {{- end }}
 
           {{- with .Values.resources }}
