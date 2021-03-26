@@ -42,6 +42,7 @@ port: 1080
 # probes for enabling and configuring probes
 probes:
   enabled: true
+  port: 1080
   initialDelaySeconds: 10
   liveness: /health
   readiness: /health

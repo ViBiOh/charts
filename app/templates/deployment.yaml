@@ -105,14 +105,14 @@ spec:
             initialDelaySeconds: {{ .initialDelaySeconds }}
             httpGet:
               path: {{ .liveness | quote }}
-              port: http
+              port: {{ .port }}
           {{- end }}
           {{- if .readiness }}
           readinessProbe:
             initialDelaySeconds: {{ .initialDelaySeconds }}
             httpGet:
               path: {{ .readiness | quote }}
-              port: http
+              port: {{ .port }}
           {{- end }}
           {{- end }}
           {{- end }}
