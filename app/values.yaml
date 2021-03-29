@@ -45,7 +45,7 @@ probes:
   port: 1080
   initialDelaySeconds: 10
   liveness: /health
-  readiness: /health
+  readiness: /ready
 
 # terminationGracePeriodSeconds is the time waiting before SIGKILL
 terminationGracePeriodSeconds: 60
