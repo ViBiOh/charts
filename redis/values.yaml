@@ -19,7 +19,7 @@ port: 6379
 user: 1000
 
 # config content, as a SealedSecret, passed to the container as redis.conf
-config: {}
+config: ""
 
 # strategy defines the rollout strategy for deployment
 strategy:
