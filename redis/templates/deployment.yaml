@@ -52,7 +52,7 @@ spec:
 
           volumeMounts:
             - name: config
-              mountPath: "/usr/local/etc/redis/redis.conf"
+              mountPath: "/usr/local/etc/redis"
               readOnly: true
 
           ports:

@@ -18,8 +18,9 @@ port: 6379
 # user used by redis
 user: 1000
 
-# config content, as a SealedSecret. Must contains a redis.conf entry
-config: ""
+# secrets content, as a SealedSecret, mounted into "/usr/local/etc/redis"
+secrets:
+  redis.conf: ""
 
 # strategy defines the rollout strategy for deployment
 strategy:
