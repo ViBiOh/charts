@@ -1,0 +1,39 @@
+---
+# image configuration
+image:
+  repository: redis
+  pullPolicy: IfNotPresent
+  tag: "6.2.1-alpine3.13"
+
+# imagePullSecrets for pulling image, array of strings
+imagePullSecrets:
+  - dockerhub
+
+# podAnnotations placed on the pod
+podAnnotations: {}
+
+# port used by redis
+port: 6379
+
+# user used by redis
+user: 1000
+
+# config content, as a SealedSecret, passed to the container as redis.conf
+config: {}
+
+# strategy defines the rollout strategy for deployment
+strategy:
+  type: Recreate
+
+# resources requests and limits for defining the QoS
+resources:
+  limits:
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# service configuration for the service
+service:
+  type: ClusterIP
+  port: 80

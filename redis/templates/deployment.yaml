@@ -1,0 +1,79 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "redis.fullname" . }}
+  labels:
+    {{- include "redis.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "redis.selectorLabels" . | nindent 6 }}
+
+  {{- if .Values.strategy }}
+  strategy:
+    {{- toYaml .Values.strategy | nindent 4 }}
+  {{- end }}
+
+  template:
+    metadata:
+      annotations:
+      {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.secrets }}
+        checksum/secrets: {{ toYaml . | sha256sum }}
+      {{- end }}
+      labels:
+        {{- include "redis.selectorLabels" . | nindent 8 }}
+
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range . }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
+
+      volumes:
+        - name: config
+          secret:
+            secretName: {{ include "redis.fullname" . }}
+
+      containers:
+        - name: {{ include "redis.fullname" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          command:
+            - redis-server
+            - /usr/local/etc/redis/redis.conf
+
+          volumeMounts:
+            - name: config
+              mountPath: "/usr/local/etc/redis/redis.conf"
+              readOnly: true
+
+          ports:
+            - name: redis
+              containerPort: {{ .Values.port }}
+              protocol: TCP
+
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.port }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.port }}
+
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          securityContext:
+            runAsGroup: {{ .Values.user }}
+            runAsUser: {{ .Values.user }}
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
