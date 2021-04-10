@@ -26,6 +26,13 @@ secrets:
 strategy:
   type: Recreate
 
+# persistentVolume for storing databases datas
+persistentvolume:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  storage: 200Mi
+
 # resources requests and limits for defining the QoS
 resources:
   limits:

@@ -32,12 +32,10 @@ spec:
         {{- include "app.selectorLabels" . | nindent 8 }}
 
     spec:
-      {{- if .Values.persistentvolume.enabled }}
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "app.fullname" . }}
-      {{- end }}
 
       {{- with .Values.image.pullSecretNames }}
       imagePullSecrets:
@@ -112,11 +110,9 @@ spec:
           {{- end }}
           {{- end }}
 
-          {{- if .Values.persistentvolume.enabled }}
           volumeMounts:
             - name: data
               mountPath: /var/lib/postgresql/data
-          {{- end }}
 
           ports:
             - name: postgres

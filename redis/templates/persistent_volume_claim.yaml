@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "app.fullname" . }}
+  name: {{ include "redis.fullname" . }}
   labels:
-    {{- include "app.labels" . | nindent 4 }}
+    {{- include "redis.labels" . | nindent 4 }}
 spec:
   accessModes: {{ .Values.persistentvolume.accessModes }}
   storageClassName: {{ .Values.persistentvolume.storageClassName }}

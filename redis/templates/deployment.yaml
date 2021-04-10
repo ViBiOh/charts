@@ -40,6 +40,9 @@ spec:
         - name: config
           secret:
             secretName: {{ include "redis.fullname" . }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "redis.fullname" . }}
 
       containers:
         - name: {{ include "redis.fullname" . }}
@@ -54,6 +57,8 @@ spec:
             - name: config
               mountPath: "/usr/local/etc/redis"
               readOnly: true
+            - name: data
+              mountPath: "/data"
 
           ports:
             - name: redis

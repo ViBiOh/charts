@@ -23,7 +23,6 @@ user: 70
 
 # persistentVolume for storing databases datas
 persistentvolume:
-  enabled: true
   accessModes:
     - ReadWriteOnce
   storageClassName: local-path
@@ -49,11 +48,6 @@ resources:
 service:
   type: ClusterIP
   port: 80
-
-# podDisruption configuration for the podDisruption_budget, if any
-podDisruption:
-  enabled: true
-  minAvailable: 1
 
 # pgBouncer configuration for the connection pooling, not ready for ARM
 pgBouncer:
