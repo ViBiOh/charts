@@ -108,7 +108,6 @@ ingress:
     - redirect@file
   https_middlewares:
     - compress@file
-    - rate-limit@file
   # redirect:
   #   regex: ^https?://www.example.localhost(.*)
   #   replacement: https://example.localhost${1}
