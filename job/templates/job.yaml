@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "app.fullname" . }}
+  name: {{ include "job.fullname" . }}
   labels:
-    {{- include "app.labels" . | nindent 4 }}
+    {{- include "job.labels" . | nindent 4 }}
   annotations:
     {{- with .Values.config }}
       checksum/config: {{ toYaml . | sha256sum }}
@@ -28,7 +28,7 @@ spec:
       {{- end }}
 
       containers:
-        - name: {{ include "app.fullname" . }}
+        - name: {{ include "job.fullname" . }}
           image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
@@ -47,10 +47,8 @@ spec:
 
           {{- if .Values.secrets }}
           envFrom:
-          {{- if .Values.secrets }}
             - secretRef:
-                name: {{ include "app.fullname" . }}
-          {{- end }}
+                name: {{ include "job.fullname" . }}
           {{- end }}
 
           {{- with .Values.resources }}
