@@ -1,0 +1,37 @@
+---
+# image is the configuration of image management
+image:
+  name: vibioh/scratch
+  tag: latest
+  pullPolicy: Always
+  pullSecretNames:
+    - dockerhub
+
+# restartPolicy in case of failure
+restartPolicy: OnFailure
+
+# backoffLimit of job, number of retries in case of failure
+backoffLimit: 3
+
+# ttlSecondsAfterFinished of job, time to leave before deletion on success
+ttlSecondsAfterFinished: 120
+
+# command run in the container
+command: ""
+
+# args passed to the command
+args: []
+
+# config is the map of env var passed to the pod
+config: {}
+
+# secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
+secrets: {}
+
+# resources are the requests and limits for defining the QoS
+resources:
+  limits:
+    memory: 64Mi
+  requests:
+    cpu: 100m
+    memory: 64Mi

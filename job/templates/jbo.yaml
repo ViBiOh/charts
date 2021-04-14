@@ -1,0 +1,60 @@
+---
+apiVersion: batch/v1beta1
+kind: Job
+metadata:
+  name: {{ include "app.fullname" . }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+  metadata:
+    annotations:
+    {{- with .Values.config }}
+      checksum/config: {{ toYaml . | sha256sum }}
+    {{- end }}
+    {{- with .Values.secrets }}
+      checksum/secrets: {{ toYaml . | sha256sum }}
+    {{- end }}
+spec:
+  backoffLimit: {{ .Values.backoffLimit }}
+  ttlSecondsAfterFinished: {{ .Values.ttlSecondsAfterFinished }}
+
+  template:
+    spec:
+      restartPolicy: {{ .Values.restartPolicy }}
+
+      {{- with .Values.image.pullSecretNames }}
+      imagePullSecrets:
+        {{- range . }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
+
+      containers:
+        - name: {{ include "app.fullname" . }}
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          {{- with .Values.command }}
+          command: {{ . | quote }}
+          {{- end }}
+
+          {{- with .Values.args }}
+          args:
+            {{- toYaml . | nindent 16 }}
+          {{- end }}
+
+          {{- if or .Values.config .Values.secrets }}
+          envFrom:
+          {{- if .Values.config }}
+            - configMapRef:
+                name: {{ include "app.fullname" . }}
+          {{- end }}
+          {{- if .Values.secrets }}
+            - secretRef:
+                name: {{ include "app.fullname" . }}
+          {{- end }}
+          {{- end }}
+
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 16 }}
+          {{- end }}

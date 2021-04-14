@@ -22,8 +22,9 @@ init:
 lint:
 	helm lint app/
 	helm lint cron/
-	helm lint postgres/
 	helm lint flux/
+	helm lint job/
+	helm lint postgres/
 	helm lint redis/
 
 ## package: Package every charts into a tgz
@@ -31,8 +32,9 @@ lint:
 package:
 	helm package app/ --destination packages/
 	helm package cron/ --destination packages/
-	helm package postgres/ --destination packages/
 	helm package flux/ --destination packages/
+	helm package job/ --destination packages/
+	helm package postgres/ --destination packages/
 	helm package redis/ --destination packages/
 
 ## index: Index current repository state
