@@ -34,20 +34,20 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
           {{- with .Values.command }}
-          command: {{ . | quote }}
+          command:
+            {{- toYaml .| nindent 12 }}
           {{- end }}
 
-          {{- with .Values.args }}
-          args:
-            {{- toYaml . | nindent 16 }}
+          {{- with .Values.config }}
+          env:
+            {{- range $key, $value := . }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
           {{- end }}
 
-          {{- if or .Values.config .Values.secrets }}
+          {{- if .Values.secrets }}
           envFrom:
-          {{- if .Values.config }}
-            - configMapRef:
-                name: {{ include "app.fullname" . }}
-          {{- end }}
           {{- if .Values.secrets }}
             - secretRef:
                 name: {{ include "app.fullname" . }}
