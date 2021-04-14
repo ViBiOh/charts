@@ -5,8 +5,7 @@ metadata:
   name: {{ include "app.fullname" . }}
   labels:
     {{- include "app.labels" . | nindent 4 }}
-  metadata:
-    annotations:
+  annotations:
     {{- with .Values.config }}
       checksum/config: {{ toYaml . | sha256sum }}
     {{- end }}
