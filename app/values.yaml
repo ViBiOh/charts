@@ -7,35 +7,6 @@ image:
   pullSecretNames:
     - dockerhub
 
-# init container of the deployment, if any
-init:
-  enabled: false
-
-  # configuration of init_container image management
-  name: vibioh/scratch
-  tag: latest
-  pullPolicy: Always
-
-  # command to run inside init_container
-  command:
-    - /bin/bash
-    - "-c"
-    - "echo Hello"
-
-  # env variables passed to the pod
-  env: {}
-
-  # secrets map, in the form of a Sealed Secrets, created and passed to the init_container as a ref
-  secrets: {}
-
-  # resources requests and limits for defining the QoS
-  resources:
-    limits:
-      memory: 64Mi
-    requests:
-      cpu: 100m
-      memory: 64Mi
-
 # port HTTP listened
 port: 1080
 

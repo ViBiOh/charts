@@ -126,34 +126,3 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-
-      {{- if .Values.init.enabled }}
-      initContainers:
-        - name: {{ include "app.fullname" . }}-init
-          image: "{{ .Values.init.name }}:{{ .Values.init.tag }}"
-          imagePullPolicy: {{ .Values.init.pullPolicy }}
-
-          {{- with .Values.init.env }}
-          env:
-            {{- range $key, $value := . }}
-            - name: {{ $key | quote }}
-              value: {{ $value | quote }}
-            {{- end }}
-          {{- end }}
-
-          {{- if .Values.init.secrets }}
-          envFrom:
-            - secretRef:
-                name: {{ include "app.fullname" . }}-init
-          {{- end }}
-
-          {{- if .Values.init.command }}
-          command:
-            {{- toYaml .Values.init.command | nindent 12 }}
-          {{- end }}
-
-          {{- if .Values.init.resources }}
-          resources:
-            {{- toYaml .Values.init.resources | nindent 12 }}
-          {{- end }}
-      {{- end }}
