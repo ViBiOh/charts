@@ -44,6 +44,6 @@ spec:
     webhooks:
       - name: load-test
         type: rollout
-        url: http://vegetaas.default/?url={{ urlquery .Values.canary.url }}&rps=5&duration=10s
+        url: http://vegetaas.default/?url={{ urlquery .Values.canary.url }}&rps=20&duration=10s
         timeout: 5s
 {{- end }}
