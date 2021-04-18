@@ -43,7 +43,8 @@ spec:
               imagePullPolicy: {{ $root.Values.image.pullPolicy }}
 
               {{- with .command }}
-              command: {{ . | quote }}
+              command:
+                {{- toYaml . | nindent 16 }}
               {{- end }}
 
               {{- with .args }}

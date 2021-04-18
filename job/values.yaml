@@ -17,7 +17,7 @@ backoffLimit: 3
 ttlSecondsAfterFinished: 120
 
 # command run in the container
-command: ""
+command: []
 
 # config is the map of env var passed to the pod
 config: {}
