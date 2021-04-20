@@ -100,19 +100,20 @@ spec:
 
           {{- if .Values.probes.enabled }}
           {{- with .Values.probes }}
-          {{- if .liveness }}
           livenessProbe:
+            {{- if .initialDelaySeconds }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
-            httpGet:
-              path: {{ .liveness | quote }}
-              port: {{ .port }}
-          {{- end }}
+            {{- end }}
+            tcpSocket:
+              port: http
           {{- if .readiness }}
           readinessProbe:
+            {{- if .initialDelaySeconds }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
+            {{- end }}
             httpGet:
               path: {{ .readiness | quote }}
-              port: {{ .port }}
+              port: http
           {{- end }}
           {{- end }}
           {{- end }}

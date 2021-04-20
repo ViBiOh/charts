@@ -13,10 +13,8 @@ port: 1080
 # probes for enabling and configuring probes
 probes:
   enabled: true
-  port: 1080
-  initialDelaySeconds: 10
-  liveness: /health
   readiness: /ready
+  # initialDelaySeconds: 5
 
 # terminationGracePeriodSeconds is the time waiting before SIGKILL
 terminationGracePeriodSeconds: 60
