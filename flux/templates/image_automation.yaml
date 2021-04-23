@@ -2,7 +2,7 @@
 
 {{- range .Values.images }}
 ---
-apiVersion: image.toolkit.fluxcd.io/v1alpha1
+apiVersion: image.toolkit.fluxcd.io/v1alpha2
 kind: ImageRepository
 metadata:
   name: {{ include "app.fullname" $root }}-{{ .id }}
@@ -13,7 +13,7 @@ spec:
   image: {{ .name }}
 
 ---
-apiVersion: image.toolkit.fluxcd.io/v1alpha1
+apiVersion: image.toolkit.fluxcd.io/v1alpha2
 kind: ImagePolicy
 metadata:
   name: {{ include "app.fullname" $root }}-{{ .id }}
@@ -31,7 +31,7 @@ spec:
 
 {{- if .Values.images }}
 ---
-apiVersion: image.toolkit.fluxcd.io/v1alpha1
+apiVersion: image.toolkit.fluxcd.io/v1alpha2
 kind: ImageUpdateAutomation
 metadata:
   name: {{ include "app.fullname" . }}
@@ -39,16 +39,20 @@ metadata:
     {{- include "app.labels" . | nindent 4 }}
 spec:
   interval: 60m
-  checkout:
-    branch: {{ .Values.repository.branch }}
-    gitRepositoryRef:
-      name: {{ include "app.fullname" . }}
+  sourceRef:
+    kind: GitRepository
+    name: {{ include "app.fullname" . }}
+  git:
+    checkout:
+      ref:
+        branch: {{ .Values.repository.branch }}
+    commit:
+      messageTemplate: "ci(flux): [skip ci] Update image from automation"
+      author:
+        name: Flux
+        email: flux@vibioh.fr
   update:
     strategy: Setters
-  commit:
-    authorName: Flux
-    authorEmail: flux@vibioh.fr
-    messageTemplate: "ci(flux): [skip ci] Update image from automation"
 
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
