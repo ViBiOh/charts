@@ -69,4 +69,4 @@ backup:
   extraArgs: --data-only
 
   # uploadCommand is what's called after pg_dump is success, it's appended with the backup filename without space
-  uploadCommand: 'apk --update add curl && curl https://fibr.vibioh.fr/20ace1a0/ -H "Accept: text/plain" --user "fibr:${FIBR_BACKUP_PASSWORD}" --form method=POST --form file=@'
+  uploadCommand: 'apk --update add curl && curl https://fibr.vibioh.fr/20ace1a0/ -H "Accept: text/plain" --fail-with-body --user "fibr:${FIBR_BACKUP_PASSWORD}" --form method=POST --form file=@'
