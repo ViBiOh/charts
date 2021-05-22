@@ -83,7 +83,7 @@ ingress:
 
 # podDisruption configuration for the podDisruption_budget, if any
 podDisruption:
-  enabled: true
+  enabled: false
   minAvailable: 1
 
 # autoscaling configuration for the horizontal pod autoscaler, if any
