@@ -92,3 +92,9 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 3
   targetAverageUtilization: 80
+
+# networkPolicy configuration
+networkPolicy:
+  enabled: false
+  allowExternal: false
+  podsSelectors: []
