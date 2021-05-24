@@ -6,8 +6,7 @@ apiVersion: image.toolkit.fluxcd.io/v1alpha2
 kind: ImageRepository
 metadata:
   name: {{ include "app.fullname" $root }}-{{ .id }}
-  labels:
-    {{- include "app.labels" $root | nindent 4 }}
+  labels: {{- include "app.labels" $root | nindent 4 }}
 spec:
   interval: 60m
   image: {{ .name }}
@@ -17,8 +16,7 @@ apiVersion: image.toolkit.fluxcd.io/v1alpha2
 kind: ImagePolicy
 metadata:
   name: {{ include "app.fullname" $root }}-{{ .id }}
-  labels:
-    {{- include "app.labels" $root | nindent 4 }}
+  labels: {{- include "app.labels" $root | nindent 4 }}
 spec:
   imageRepositoryRef:
     name: {{ include "app.fullname" $root }}-{{ .id }}
@@ -35,8 +33,7 @@ apiVersion: image.toolkit.fluxcd.io/v1alpha2
 kind: ImageUpdateAutomation
 metadata:
   name: {{ include "app.fullname" . }}
-  labels:
-    {{- include "app.labels" . | nindent 4 }}
+  labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   interval: 60m
   sourceRef:
@@ -59,8 +56,7 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Receiver
 metadata:
   name: {{ include "app.fullname" . }}-image
-  labels:
-    {{- include "app.labels" . | nindent 4 }}
+  labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   type: generic-hmac
   secretRef:

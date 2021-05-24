@@ -5,22 +5,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "app.fullname" . }}
-  labels:
-    {{- include "app.labels" . | nindent 4 }}
+  labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   selector:
-    matchLabels:
-      {{- include "app.selectorLabels" . | nindent 6 }}
+    matchLabels: {{- include "app.selectorLabels" . | nindent 6 }}
 
   {{- if .Values.strategy }}
-  strategy:
-    {{- toYaml .Values.strategy | nindent 4 }}
+  strategy: {{- toYaml .Values.strategy | nindent 4 }}
   {{- end }}
 
   template:
     metadata:
-      labels:
-        {{- include "app.selectorLabels" . | nindent 8 }}
+      labels: {{- include "app.selectorLabels" . | nindent 8 }}
 
       annotations:
       {{- if .Values.prometheus.enabled }}
@@ -46,13 +42,11 @@ spec:
       {{- end }}
 
       {{- with .Values.volumes }}
-      volumes:
-        {{- toYaml . | nindent 8 }}
+      volumes: {{- toYaml . | nindent 8 }}
       {{- end }}
 
       {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
+      affinity: {{- toYaml . | nindent 8 }}
       {{- end }}
 
       {{- with .Values.terminationGracePeriodSeconds }}
@@ -94,8 +88,7 @@ spec:
           {{- end }}
 
           {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
+          volumeMounts: {{- toYaml . | nindent 12 }}
           {{- end }}
 
           {{- if .Values.probes.enabled }}
@@ -119,11 +112,9 @@ spec:
           {{- end }}
 
           {{- with .Values.resources }}
-          resources:
-            {{- toYaml . | nindent 12 }}
+          resources: {{- toYaml . | nindent 12 }}
           {{- end }}
 
           {{- with .Values.securityContext }}
-          securityContext:
-            {{- toYaml . | nindent 12 }}
+          securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}

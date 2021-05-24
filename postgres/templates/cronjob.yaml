@@ -4,8 +4,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ include "app.fullname" . }}-backup
-  labels:
-    {{- include "app.labels" . | nindent 4 }}
+  labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   concurrencyPolicy: {{ .Values.backup.concurrencyPolicy }}
   schedule: {{ .Values.backup.schedule | quote }}
@@ -51,7 +50,6 @@ spec:
               {{- end }}
 
               {{- with .Values.resources }}
-              resources:
-                {{- toYaml . | nindent 16 }}
+              resources: {{- toYaml . | nindent 16 }}
               {{- end }}
 {{- end }}

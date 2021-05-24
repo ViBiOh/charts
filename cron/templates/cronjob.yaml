@@ -3,8 +3,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ include "app.fullname" . }}
-  labels:
-    {{- include "app.labels" . | nindent 4 }}
+  labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   concurrencyPolicy: {{ .Values.concurrencyPolicy }}
   schedule: {{ .Values.schedule | quote }}
@@ -43,13 +42,11 @@ spec:
               imagePullPolicy: {{ $root.Values.image.pullPolicy }}
 
               {{- with .command }}
-              command:
-                {{- toYaml . | nindent 16 }}
+              command: {{- toYaml . | nindent 16 }}
               {{- end }}
 
               {{- with .args }}
-              args:
-                {{- toYaml . | nindent 16 }}
+              args: {{- toYaml . | nindent 16 }}
               {{- end }}
 
               {{- if or $root.Values.config $root.Values.secrets }}
@@ -65,7 +62,6 @@ spec:
               {{- end }}
 
               {{- with $root.Values.resources }}
-              resources:
-                {{- toYaml . | nindent 16 }}
+              resources: {{- toYaml . | nindent 16 }}
               {{- end }}
             {{- end }}
