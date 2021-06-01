@@ -34,12 +34,10 @@ spec:
           {{- end }}
 
           containers:
-            {{- $root := . }}
-
-            {{- range $root.Values.containers }}
+            {{- range $.Values.containers }}
             - name: {{ .name }}
-              image: "{{ $root.Values.image.name }}:{{ $root.Values.image.tag }}"
-              imagePullPolicy: {{ $root.Values.image.pullPolicy }}
+              image: "{{ $.Values.image.name }}:{{ $.Values.image.tag }}"
+              imagePullPolicy: {{ $.Values.image.pullPolicy }}
 
               {{- with .command }}
               command: {{- toYaml . | nindent 16 }}
@@ -49,19 +47,19 @@ spec:
               args: {{- toYaml . | nindent 16 }}
               {{- end }}
 
-              {{- if or $root.Values.config $root.Values.secrets }}
+              {{- if or $.Values.config $.Values.secrets }}
               envFrom:
-              {{- if $root.Values.config }}
+              {{- if $.Values.config }}
                 - configMapRef:
-                    name: {{ include "app.fullname" $root }}
+                    name: {{ include "app.fullname" $ }}
               {{- end }}
-              {{- if $root.Values.secrets }}
+              {{- if $.Values.secrets }}
                 - secretRef:
-                    name: {{ include "app.fullname" $root }}
+                    name: {{ include "app.fullname" $ }}
               {{- end }}
               {{- end }}
 
-              {{- with $root.Values.resources }}
+              {{- with $.Values.resources }}
               resources: {{- toYaml . | nindent 16 }}
               {{- end }}
             {{- end }}

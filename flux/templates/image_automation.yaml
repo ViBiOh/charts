@@ -1,12 +1,10 @@
-{{- $root := . -}}
-
 {{- range .Values.images }}
 ---
 apiVersion: image.toolkit.fluxcd.io/v1alpha2
 kind: ImageRepository
 metadata:
-  name: {{ include "app.fullname" $root }}-{{ .id }}
-  labels: {{- include "app.labels" $root | nindent 4 }}
+  name: {{ include "app.fullname" $ }}-{{ .id }}
+  labels: {{- include "app.labels" $ | nindent 4 }}
 spec:
   interval: 60m
   image: {{ .name }}
@@ -15,11 +13,11 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1alpha2
 kind: ImagePolicy
 metadata:
-  name: {{ include "app.fullname" $root }}-{{ .id }}
-  labels: {{- include "app.labels" $root | nindent 4 }}
+  name: {{ include "app.fullname" $ }}-{{ .id }}
+  labels: {{- include "app.labels" $ | nindent 4 }}
 spec:
   imageRepositoryRef:
-    name: {{ include "app.fullname" $root }}-{{ .id }}
+    name: {{ include "app.fullname" $ }}-{{ .id }}
   filterTags:
     pattern: ^[0-9]{12}
   policy:
@@ -64,6 +62,6 @@ spec:
   resources:
     {{- range .Values.images }}
     - kind: ImageRepository
-      name: {{ include "app.fullname" $root }}-{{ .id }}
+      name: {{ include "app.fullname" $ }}-{{ .id }}
     {{- end }}
 {{- end }}
