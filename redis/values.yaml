@@ -3,7 +3,7 @@
 image:
   repository: redis
   pullPolicy: IfNotPresent
-  tag: "6.2.1-alpine3.13"
+  tag: "6.2-alpine"
 
 # imagePullSecrets for pulling image, array of strings
 imagePullSecrets:

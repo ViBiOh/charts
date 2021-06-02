@@ -5,4 +5,4 @@ description: A simple redis instance
 
 type: application
 version: 0.0.7
-appVersion: 6.2.1-alpine3.13
+appVersion: 6.2-alpine
