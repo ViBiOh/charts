@@ -42,7 +42,7 @@ resources:
     memory: 128Mi
   requests:
     cpu: 100m
-    memory: 128Mi
+    memory: 32Mi
 
 # service configuration for the service
 service:

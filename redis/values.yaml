@@ -36,10 +36,10 @@ persistentvolume:
 # resources requests and limits for defining the QoS
 resources:
   limits:
-    memory: 128Mi
+    memory: 64Mi
   requests:
     cpu: 100m
-    memory: 128Mi
+    memory: 32Mi
 
 # service configuration for the service
 service:
