@@ -36,7 +36,7 @@ spec:
   {{- end }}
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt
+    name: {{ .Values.ingress.clusterIssuer }}
     group: cert-manager.io
 
 ---
