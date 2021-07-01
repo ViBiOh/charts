@@ -45,11 +45,11 @@ spec:
     commit:
       messageTemplate: |
         ci(flux): [skip ci] Update
-        {{ "{{" }}- range $i, $image := .Updated.Images }}
-          {{ "{{" }}- if ne $i 0 -}}
+        {{ `{{- range $i, $image := .Updated.Images }}
+          {{- if ne $i 0 -}}
             ,
-          {{ "{{" }}- end }} {{ "{{" }} . }}
-        {{ "{{" }}- end }} from automation
+          {{- end }} {{ . }}
+        {{- end }} from automation` }}
       author:
         name: Flux
         email: flux@vibioh.fr
