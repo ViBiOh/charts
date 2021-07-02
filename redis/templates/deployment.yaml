@@ -37,8 +37,12 @@ spec:
           secret:
             secretName: {{ include "redis.fullname" . }}
         - name: data
+          {{- if .Values.persistentvolume.enabled }}
           persistentVolumeClaim:
             claimName: {{ include "redis.fullname" . }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
 
       containers:
         - name: {{ include "redis.fullname" . }}

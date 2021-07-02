@@ -28,6 +28,7 @@ strategy:
 
 # persistentVolume for storing databases datas
 persistentvolume:
+  enabled: false
   accessModes:
     - ReadWriteOnce
   storageClassName: local-path
