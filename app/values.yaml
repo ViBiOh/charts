@@ -19,10 +19,10 @@ probes:
 # terminationGracePeriodSeconds is the time waiting before SIGKILL
 terminationGracePeriodSeconds: 60
 
-# config map created and passed to the pod as a ref
+# config map passed as env var to the pod
 config: {}
 
-# secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
+# secrets map, in the form of a Sealed Secrets,passed as env var to the pod
 secrets: {}
 
 # volumes array for deployment

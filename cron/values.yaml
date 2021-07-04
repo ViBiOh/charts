@@ -1,5 +1,5 @@
 ---
-# image is the configuration of image management
+# image configuration
 image:
   name: vibioh/scratch
   tag: latest
@@ -20,11 +20,14 @@ containers:
     command: []
     args: []
 
-# config is the map of env var passed to the pod
+# config map passed as env var to the pod
 config: {}
 
-# secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
+# secrets map, in the form of a Sealed Secrets,passed as env var to the pod
 secrets: {}
+
+# affinity for the job
+affinity: {}
 
 # resources are the requests and limits for defining the QoS
 resources:
