@@ -6,7 +6,9 @@ metadata:
   labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   accessModes: {{ .Values.persistentvolume.accessModes }}
-  storageClassName: {{ .Values.persistentvolume.storageClassName }}
+  {{- with .Values.persistentvolume.storageClassName }}
+  storageClassName: {{ . }}
+  {{- end }}
   resources:
     requests:
       storage: {{ .Values.persistentvolume.storage }}
