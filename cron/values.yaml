@@ -9,7 +9,7 @@ image:
 
 restartPolicy: Never
 concurrencyPolicy: Forbid
-schedule: "0 7 * * *"
+schedule: "0 6 * * *"
 
 successfulJobsHistoryLimit: 2
 failedJobsHistoryLimit: 2
