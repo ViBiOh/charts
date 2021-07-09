@@ -70,15 +70,14 @@ canary:
 # ingress configuration of the Traefik's ingress, if any
 ingress:
   enabled: false
+  compress: false
+  rateLimit: true
+  httpsUpgrade: true
   clusterIssuer: letsencrypt
   hosts:
     - example.localhost
-  http_middlewares:
-    - ratelimit@file
-    - redirect@file
-  https_middlewares:
-    - ratelimit@file
-    - compress@file
+  http_middlewares: []
+  https_middlewares: []
   # redirect:
   #   regex: ^https?://www.example.localhost(.*)
   #   replacement: https://example.localhost${1}

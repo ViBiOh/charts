@@ -1,13 +1,26 @@
 {{- if .Values.ingress.enabled -}}
 
 {{- $customMiddlewares := list -}}
+
 {{- if .Values.ingress.redirect }}
   {{- $redirectMiddleware := printf "%s-%s-%s" .Release.Namespace (include "app.fullname" .) "redirect@kubernetescrd" -}}
   {{- $customMiddlewares = append $customMiddlewares $redirectMiddleware -}}
 {{- end -}}
 
+{{- if .Values.ingress.rateLimit -}}
+  {{- $customMiddlewares = append $customMiddlewares "ratelimit@file" -}}
+{{- end -}}
+
+{{- if .Values.ingress.compress -}}
+  {{- $customMiddlewares = append $customMiddlewares "compress@file" -}}
+{{- end -}}
+
 {{- $httpMiddlewares := concat $customMiddlewares .Values.ingress.http_middlewares -}}
 {{- $httpsMiddlewares := concat $customMiddlewares .Values.ingress.https_middlewares -}}
+
+{{- if .Values.ingress.httpsUpgrade -}}
+  {{- $httpMiddlewares = append $customMiddlewares "redirect@file" -}}
+{{- end -}}
 
 {{- if .Values.ingress.redirect }}
 ---
