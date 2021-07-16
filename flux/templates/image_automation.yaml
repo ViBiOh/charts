@@ -44,12 +44,12 @@ spec:
         branch: {{ .Values.repository.branch }}
     commit:
       messageTemplate: |
-        ci(flux): [skip ci] Update
-        {{ `{{- range $i, $image := .Updated.Images }}
-          {{- if ne $i 0 -}}
-            ,
-          {{- end }} {{ . }}
-        {{- end }} from automation` }}
+        ci(flux): [skip ci] Automated image update for {{ `{{ .AutomationObject }}` }}
+
+        Images:
+        {{ `{{- range .Updated.Images }}
+        - {{.}}
+        {{- end }}` }}
       author:
         name: Flux
         email: flux@vibioh.fr
