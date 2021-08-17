@@ -3,7 +3,7 @@
 {{- $customMiddlewares := list -}}
 
 {{- if .Values.ingress.redirect }}
-  {{- $redirectMiddleware := printf "%s-%s-%s" .Release.Namespace (include "app.fullname" .) "redirect@kubernetescrd" -}}
+  {{- $redirectMiddleware := printf "%s-%s" (include "app.fullname" .) "redirect" -}}
   {{- $customMiddlewares = append $customMiddlewares $redirectMiddleware -}}
 {{- end -}}
 
@@ -69,6 +69,9 @@ spec:
       middlewares:
         {{- range . }}
         - name: {{ . }}
+          {{- if not (contains "@" .) }}
+          namespace: {{ $.Release.Namespace }}
+          {{- end}}
         {{- end }}
       {{- end }}
       services:
@@ -98,6 +101,9 @@ spec:
       middlewares:
         {{- range . }}
         - name: {{ . }}
+          {{- if not (contains "@" .) }}
+          namespace: {{ $.Release.Namespace }}
+          {{- end}}
         {{- end }}
       {{- end }}
       services:
