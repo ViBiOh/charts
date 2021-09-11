@@ -31,8 +31,6 @@ persistentvolume:
 # secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
 secrets:
   POSTGRES_PASSWORD: changeme
-  FIBR_BACKUP_URL: http://localhost
-  FIBR_BACKUP_PASSWORD: changeme
 
 # strategy defines the rollout strategy for deployment
 strategy:
