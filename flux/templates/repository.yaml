@@ -2,27 +2,27 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  name: { { include "app.fullname" . } }
-  labels: { { - include "app.labels" . | nindent 4 } }
+  name: {{ include "app.fullname" . }}
+  labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   interval: 120m
   ref:
-    branch: { { .Values.repository.branch } }
+    branch: {{ .Values.repository.branch }}
   url: ssh://git@{{ .Values.repository.type }}.com/{{ .Values.repository.name }}
   secretRef:
-    name: { { .Values.repository.secret } }
+    name: {{ .Values.repository.secret }}
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: { { include "app.fullname" . } }
-  labels: { { - include "app.labels" . | nindent 4 } }
+  name: {{ include "app.fullname" . }}
+  labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   interval: 120m
-  path: { { .Values.repository.path } }
+  path: {{ .Values.repository.path }}
   prune: true
   sourceRef:
     kind: GitRepository
-    name: { { include "app.fullname" . } }
+    name: {{ include "app.fullname" . }}
   validation: client
