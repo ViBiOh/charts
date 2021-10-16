@@ -1,7 +1,7 @@
 ---
 # image is the configuration of image management
 image:
-  repository: postgres:13-alpine
+  repository: postgres:14-alpine
   pullPolicy: Always
   pullSecretNames:
     - dockerhub
