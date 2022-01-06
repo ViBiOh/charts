@@ -53,6 +53,9 @@ spec:
       author:
         name: Flux
         email: flux@vibioh.fr
+      signingKey:
+        secretRef:
+          name: github-ssh
   update:
     path: {{ .Values.repository.path }}
     strategy: Setters
