@@ -72,7 +72,6 @@ ingress:
   enabled: false
   compress: false
   rateLimit: true
-  redirect: true
   httpsUpgrade: true
   clusterIssuer: letsencrypt
   hosts:
