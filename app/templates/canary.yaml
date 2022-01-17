@@ -14,7 +14,7 @@ spec:
     name: {{ include "app.fullname" . }}
 
   autoscalerRef:
-    apiVersion: autoscaling/v2beta2
+    apiVersion: autoscaling/v2
     kind: HorizontalPodAutoscaler
     name: {{ include "app.fullname" . }}
 
