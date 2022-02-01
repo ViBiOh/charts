@@ -37,6 +37,9 @@ strategy: {}
 # affinity for the deployment
 affinity: {}
 
+# tolerations for the deployment
+tolerations: []
+
 # securityContext for the main container
 securityContext:
   allowPrivilegeEscalation: false
