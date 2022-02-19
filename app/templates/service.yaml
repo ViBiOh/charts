@@ -12,5 +12,13 @@ spec:
       port: {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
+    {{- if .Values.pprof.enabled }}
+      {{ if ne .Values.pprof.port .Values.port }}
+    - name: pprof
+      port: {{ .Values.pprof.port }}
+      targetPort: pprof
+      protocol: TCP
+      {{- end }}
+    {{- end }}
   selector: {{- include "app.selectorLabels" . | nindent 4 }}
 {{- end }}

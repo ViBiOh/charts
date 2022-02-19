@@ -65,6 +65,11 @@ prometheus:
   port: 9090
   path: /metrics
 
+# pprof enable pprof endpoint
+pprof:
+  enabled: false
+  port: 9999
+
 # canary enable canary deployment
 canary:
   enabled: false
