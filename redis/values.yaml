@@ -21,6 +21,7 @@ user: 1000
 # secrets content, as a SealedSecret, mounted into "/usr/local/etc/redis"
 secrets:
   redis.conf: ""
+  REDIS_PASSWORD: ""
 
 # strategy defines the rollout strategy for deployment
 strategy:
@@ -46,3 +47,12 @@ resources:
 service:
   type: ClusterIP
   port: 80
+
+prometheus:
+  enabled: true
+  port: 9090
+  path: /metrics
+  image:
+    repository: oliver006/redis_exporter
+    pullPolicy: IfNotPresent
+    tag: v1.35.1
