@@ -104,7 +104,7 @@ spec:
 
           env:
             - name: REDIS_ADDR
-              value: redis:{{ .Values.port }}
+              value: localhost:{{ .Values.port }}
             - name: REDIS_EXPORTER_LOG_FORMAT
               value: json
             - name: REDIS_EXPORTER_WEB_LISTEN_ADDRESS
