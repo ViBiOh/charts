@@ -29,3 +29,5 @@ images:
   []
   # - id: api
   #   name: ViBiOh/scratch
+
+prune: true

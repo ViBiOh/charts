@@ -21,7 +21,7 @@ metadata:
 spec:
   interval: 120m
   path: {{ .Values.repository.path }}
-  prune: true
+  prune: {{ .Values.prune }}
   sourceRef:
     kind: GitRepository
     name: {{ include "app.fullname" . }}
