@@ -32,8 +32,8 @@ persistentvolume:
   enabled: false
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-path
-  storage: 200Mi
+  storage: 1Gi
+  # storageClassName: local-path
 
 # resources requests and limits for defining the QoS
 resources:

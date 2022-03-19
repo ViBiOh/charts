@@ -4,5 +4,5 @@ name: redis
 description: A simple redis instance
 
 type: application
-version: 0.0.14
-appVersion: 6.2-alpine
+version: 0.0.15
+appVersion: 6-alpine

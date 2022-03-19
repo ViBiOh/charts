@@ -25,8 +25,8 @@ user: 70
 persistentvolume:
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-path
-  storage: 200Mi
+  storage: 1Gi
+  # storageClassName: local-path
 
 # secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
 secrets:
