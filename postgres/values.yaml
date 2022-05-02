@@ -36,6 +36,9 @@ secrets:
 strategy:
   type: Recreate
 
+# affinity for the deployment
+affinity: {}
+
 # resources requests and limits for defining the QoS
 resources:
   limits:
