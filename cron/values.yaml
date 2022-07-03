@@ -34,6 +34,9 @@ securityContext:
   allowPrivilegeEscalation: false
   readOnlyRootFilesystem: true
   runAsNonRoot: true
+  capabilities:
+    drop:
+      - ALL
 
 # resources are the requests and limits for defining the QoS
 resources:

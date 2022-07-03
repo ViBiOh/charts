@@ -2,7 +2,7 @@
 # image configuration
 image:
   repository: redis
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "6.2-alpine"
 
 # imagePullSecrets for pulling image, array of strings
@@ -54,5 +54,5 @@ prometheus:
   path: /metrics
   image:
     repository: oliver006/redis_exporter
-    pullPolicy: IfNotPresent
-    tag: v1.35.1
+    pullPolicy: Always
+    tag: v1.43.0

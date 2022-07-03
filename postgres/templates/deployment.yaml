@@ -28,6 +28,8 @@ spec:
       labels: {{- include "app.selectorLabels" . | nindent 8 }}
 
     spec:
+      automountServiceAccountToken: false
+
       volumes:
         - name: data
           persistentVolumeClaim:
@@ -43,6 +45,10 @@ spec:
         - name: {{ . }}
         {{- end }}
       {{- end }}
+
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
 
       containers:
         {{- if .Values.pgBouncer.enabled }}
@@ -90,7 +96,7 @@ spec:
             allowPrivilegeEscalation: false
             capabilities:
               drop:
-                - all
+                - ALL
         {{- end }}
 
         - name: {{ include "app.fullname" . }}
@@ -134,3 +140,6 @@ spec:
             runAsUser: {{ .Values.user }}
             runAsNonRoot: true
             allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL

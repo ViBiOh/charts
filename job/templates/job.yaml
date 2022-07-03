@@ -26,6 +26,12 @@ spec:
         {{- end }}
       {{- end }}
 
+      automountServiceAccountToken: false
+
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+
       containers:
         - name: {{ include "job.fullname" . }}
           image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"

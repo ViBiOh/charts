@@ -26,6 +26,13 @@ spec:
       template:
         spec:
           restartPolicy: {{ .Values.backup.restartPolicy }}
+
+          automountServiceAccountToken: false
+
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+
           containers:
             - name: {{ include "app.fullname" . }}-backup
               image: "{{ .Values.image.repository }}"
@@ -52,4 +59,13 @@ spec:
               {{- with .Values.resources }}
               resources: {{- toYaml . | nindent 16 }}
               {{- end }}
+
+              securityContext:
+                runAsGroup: {{ .Values.user }}
+                runAsUser: {{ .Values.user }}
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                capabilities:
+                  drop:
+                    - ALL
 {{- end }}

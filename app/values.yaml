@@ -45,6 +45,14 @@ securityContext:
   allowPrivilegeEscalation: false
   readOnlyRootFilesystem: true
   runAsNonRoot: true
+  capabilities:
+    drop:
+      - ALL
+
+# podSecurityContext for all containers
+podSecurityContext:
+  seccompProfile:
+    type: RuntimeDefault
 
 # resources requests and limits for defining the QoS
 resources:

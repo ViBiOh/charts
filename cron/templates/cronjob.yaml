@@ -37,6 +37,12 @@ spec:
           affinity: {{- toYaml . | nindent 12 }}
           {{- end }}
 
+          automountServiceAccountToken: false
+
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+
           containers:
             {{- range $.Values.containers }}
             - name: {{ .name }}

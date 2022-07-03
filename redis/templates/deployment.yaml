@@ -41,6 +41,8 @@ spec:
         {{- end }}
       {{- end }}
 
+      automountServiceAccountToken: false
+
       volumes:
         - name: config
           secret:
@@ -52,6 +54,10 @@ spec:
           {{- else }}
           emptyDir: {}
           {{- end }}
+
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
 
       containers:
         - name: redis
@@ -88,8 +94,12 @@ spec:
           securityContext:
             runAsGroup: {{ .Values.user }}
             runAsUser: {{ .Values.user }}
-            runAsNonRoot: true
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
 
         {{- if .Values.prometheus.enabled }}
         - name: exporter
@@ -136,4 +146,7 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
         {{- end }}
