@@ -25,6 +25,12 @@ config: {}
 # secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
 secrets: {}
 
+# securityContext for the main container
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+
 # resources are the requests and limits for defining the QoS
 resources:
   limits:

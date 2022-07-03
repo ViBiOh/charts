@@ -29,6 +29,12 @@ secrets: {}
 # affinity for the job
 affinity: {}
 
+# securityContext for the main container
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+
 # resources are the requests and limits for defining the QoS
 resources:
   limits:

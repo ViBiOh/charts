@@ -124,7 +124,16 @@ spec:
             tcpSocket:
               port: {{ .Values.prometheus.port }}
 
+          resources:
+            limits:
+              cpu: 100m
+              memory: 32Mi
+            requests:
+              cpu: 100m
+              memory: 32Mi
+
           securityContext:
-            runAsNonRoot: true
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
         {{- end }}
