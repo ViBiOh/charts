@@ -28,8 +28,6 @@ spec:
       labels: {{- include "app.selectorLabels" . | nindent 8 }}
 
     spec:
-      automountServiceAccountToken: false
-
       volumes:
         - name: data
           persistentVolumeClaim:
@@ -45,6 +43,8 @@ spec:
         - name: {{ . }}
         {{- end }}
       {{- end }}
+
+      automountServiceAccountToken: false
 
       securityContext:
         seccompProfile:
