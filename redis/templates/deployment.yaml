@@ -92,7 +92,7 @@ spec:
           {{- end }}
 
           securityContext:
-            runAsGroup: {{ .Values.user }}
+            runAsGroup: {{ .Values.group }}
             runAsUser: {{ .Values.user }}
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -142,6 +142,8 @@ spec:
               memory: 32Mi
 
           securityContext:
+            runAsGroup: 65534
+            runAsUser: 65534
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             runAsNonRoot: true

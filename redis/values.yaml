@@ -3,7 +3,7 @@
 image:
   repository: redis
   pullPolicy: Always
-  tag: "6.2-alpine"
+  tag: "7-alpine"
 
 # imagePullSecrets for pulling image, array of strings
 imagePullSecrets:
@@ -16,7 +16,10 @@ podAnnotations: {}
 port: 6379
 
 # user used by redis
-user: 1000
+user: 999
+
+# group used by redis
+group: 1000
 
 # secrets content, as a SealedSecret, mounted into "/usr/local/etc/redis"
 secrets:
