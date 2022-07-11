@@ -55,7 +55,12 @@ spec:
       terminationGracePeriodSeconds: {{ . }}
       {{- end }}
 
+      {{- if .Values.serviceAccountName }}
+      automountServiceAccountToken: true
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- else }}
       automountServiceAccountToken: false
+      {{- end }}
 
       {{- with .Values.podSecurityContext }}
       securityContext: {{- toYaml . | nindent 8 }}

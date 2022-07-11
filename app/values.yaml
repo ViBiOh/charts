@@ -40,6 +40,9 @@ affinity: {}
 # tolerations for the deployment
 tolerations: []
 
+# serviceAccountName option
+serviceAccountName: ""
+
 # securityContext for the main container
 securityContext:
   allowPrivilegeEscalation: false
