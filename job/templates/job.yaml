@@ -4,6 +4,7 @@ kind: Job
 metadata:
   name: {{ include "job.fullname" . }}
   labels: {{- include "job.labels" . | nindent 4 }}
+  {{- if or .Values.config .Values.secrets }}
   annotations:
     {{- with .Values.config }}
       checksum/config: {{ toYaml . | sha256sum }}
@@ -11,6 +12,7 @@ metadata:
     {{- with .Values.secrets }}
       checksum/secrets: {{ toYaml . | sha256sum }}
     {{- end }}
+  {{- end }}
 spec:
   backoffLimit: {{ .Values.backoffLimit }}
   ttlSecondsAfterFinished: {{ .Values.ttlSecondsAfterFinished }}

@@ -12,12 +12,18 @@ spec:
 
   jobTemplate:
     metadata:
+      {{- with .Values.jobLabels }}
+      labels: {{ toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- if or .Values.config .Values.secrets }}
       annotations:
       {{- with .Values.config }}
         checksum/config: {{ toYaml . | sha256sum }}
       {{- end }}
       {{- with .Values.secrets }}
         checksum/secrets: {{ toYaml . | sha256sum }}
+      {{- end }}
       {{- end }}
 
     spec:

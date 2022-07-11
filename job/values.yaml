@@ -7,14 +7,17 @@ image:
   pullSecretNames:
     - dockerhub
 
+# extraLabels placed on the job
+extraLabels: {}
+
 # restartPolicy in case of failure
 restartPolicy: OnFailure
 
 # backoffLimit of job, number of retries in case of failure
 backoffLimit: 3
 
-# ttlSecondsAfterFinished of job, time to leave before deletion on success
-ttlSecondsAfterFinished: 120
+# ttlSecondsAfterFinished of job, time to leave before deletion
+ttlSecondsAfterFinished: 0
 
 # command run in the container
 command: []

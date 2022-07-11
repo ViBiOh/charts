@@ -9,6 +9,9 @@ image:
 # podAnnotations placed on the pod
 podAnnotations: {}
 
+# joblabels placed on the backup job
+jobLabels: {}
+
 # config map created and passed to the pod as a ref
 config:
   POSTGRES_USER: app

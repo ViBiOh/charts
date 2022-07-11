@@ -29,6 +29,9 @@ secrets: {}
 # affinity for the job
 affinity: {}
 
+# jobLabels place on a job
+jobLabels: {}
+
 # securityContext for the main container
 securityContext:
   allowPrivilegeEscalation: false
