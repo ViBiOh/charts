@@ -15,7 +15,9 @@ metadata:
   {{- end }}
 spec:
   backoffLimit: {{ .Values.backoffLimit }}
+  {{- with .Values.ttlSecondsAfterFinished }}
   ttlSecondsAfterFinished: {{ .Values.ttlSecondsAfterFinished }}
+  {{- end }}
 
   template:
     spec:

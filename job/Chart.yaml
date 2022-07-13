@@ -4,5 +4,5 @@ name: job
 description: A simple job
 
 type: application
-version: 0.0.15
+version: 0.0.16
 appVersion: latest
