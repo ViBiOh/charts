@@ -17,7 +17,7 @@ restartPolicy: OnFailure
 backoffLimit: 3
 
 # ttlSecondsAfterFinished of job, time to leave before deletion
-ttlSecondsAfterFinished: 0
+ttlSecondsAfterFinished: null
 
 # command run in the container
 command: []
