@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "job.fullname" . }}-{{ randAlphaNum 5 }}
+  name: {{ include "job.fullname" . }}-{{ randNumeric 5 }}
   labels: {{- include "job.labels" . | nindent 4 }}
   {{- if or .Values.config .Values.secrets }}
   annotations:
