@@ -112,5 +112,13 @@ spec:
           {{- if $.Values.canary.enabled }}
           kind: TraefikService
           {{- end }}
+          {{- if $.Values.ingress.sticky }}
+          sticky:
+            cookie:
+              httpOnly: true
+              name: sticky
+              secure: true
+              sameSite: strict
+          {{- end }}
     {{- end }}
 {{- end -}}

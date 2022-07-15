@@ -69,6 +69,7 @@ resources:
 service:
   type: ClusterIP
   port: 80
+  annotations: {}
 
 # prometheus enable prometheus scraping
 prometheus:
@@ -92,6 +93,7 @@ ingress:
   compress: false
   rateLimit: true
   httpsUpgrade: true
+  sticky: false
   clusterIssuer: letsencrypt
   hosts:
     - example.localhost
