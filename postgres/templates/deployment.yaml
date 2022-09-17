@@ -26,6 +26,10 @@ spec:
         checksum/secrets: {{ toYaml . | sha256sum }}
       {{- end }}
       labels: {{- include "app.selectorLabels" . | nindent 8 }}
+      prometheus.io/scrape: "true"
+      prometheus.io/scheme: http
+      prometheus.io/port: {{ .Values.prometheus.port | quote }}
+      prometheus.io/path: {{ .Values.prometheus.path | quote }}
 
     spec:
       volumes:
@@ -99,6 +103,64 @@ spec:
             runAsUser: {{ .Values.user }}
             runAsNonRoot: true
             allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+
+        - name: exporter
+          image: quay.io/prometheuscommunity/postgres-exporter
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          args:
+            - --auto-discover-databases
+            - --log.level
+            - warn
+            - --log.format
+            - json
+
+          {{- if or .Values.config .Values.secrets }}
+          envFrom:
+          {{- if .Values.config }}
+            - configMapRef:
+                name: {{ include "app.fullname" . }}
+          {{- end }}
+          {{- if .Values.secrets }}
+            - secretRef:
+                name: {{ include "app.fullname" . }}
+          {{- end }}
+          {{- end }}
+
+          env:
+            - name: PG_EXPORTER_WEB_LISTEN_ADDRESS
+              value: ":{{ .Values.prometheus.port }}"
+            - name: DATA_SOURCE_NAME
+              value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@127.0.0.1:{{ .Values.port }}/$(POSTGRES_DB)?sslmode=disable
+
+          ports:
+            - name: prometheus
+              containerPort: {{ .Values.prometheus.port }}
+              protocol: TCP
+
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.prometheus.port }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.prometheus.port }}
+
+          resources:
+            limits:
+              memory: 32Mi
+            requests:
+              cpu: 100m
+              memory: 32Mi
+
+          securityContext:
+            runAsGroup: 65534
+            runAsUser: 65534
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
             capabilities:
               drop:
                 - ALL

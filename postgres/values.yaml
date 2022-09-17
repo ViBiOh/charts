@@ -14,8 +14,8 @@ jobLabels: {}
 
 # config map created and passed to the pod as a ref
 config:
-  POSTGRES_USER: app
-  POSTGRES_DB: app
+  POSTGRES_USER: postgres
+  POSTGRES_DB: postgres
   PGDATA: /var/lib/postgresql/data/pgdata
 
 # port used by postgres
@@ -33,7 +33,7 @@ persistentvolume:
 
 # secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
 secrets:
-  POSTGRES_PASSWORD: AgCSYPpUQYRxkXYVpMj4Q6MM7gI/IHCJM107xWh02hpgFPaGxScYx+dlpFIVAM+tBavKwDx7K+ICt5qZ1KuLvs9/jCVX0OYFPrWTPyRqIp1eQMxpbmH8c5r08/9CPrerCoOUaumNS7WM/gXPOkqr2czI/3mpUJUKJ5YQHGKjP1CYYp+QAWYkZWAYTuu77bsHmyUxyS5qNN5XxxQi6IkbZB+Jn16xgnA3uYWr6t3vJ0sisC3iPY7nxoEd7lPt3zKJcRawLAx8g9/pydqWej3UYYLyO301INUHfuEL9nqMxGAhTqWsCwhM/HXcw/V97OkumvEZtzZbOaTT1AO+yiv+OyzIcLgfNusNnftDBVwzt7gRDxd4u6rgYL30LtfBBI/UDIXFPK2+SF+qOdYVSSMKC0hsx85goQoAVXgbxt+L1qL9Eit12kELVOesI1vVW4PzVQsNBkZrjkp99/SbYw2aydzZekljL1ZS4AsTjzp5/ByTwQGrNpb0Lzo0mbXJxkrLqzH3D/jKvhsA29Qk6N0mfnDcRhKFqbSVSW8F/Q1Zh+rHEhxS+2n0GEMcESqmiS36oc2uGWgNKXaAi+ujaVZ7pu1NHv7dQWWPxGNSyp6yn/SGNdzlxlCLgxg5iRfH0Cw2BhOswUZ4TadlxXAVCCljAAmM5yZyhsDSfiTyt9xRfVSF84WHK0hQ5hLDkUlZBk8DmE3VJE1AOm4izQ==
+  POSTGRES_PASSWORD: AgBfBmrdDR1FWjnGAKvs5pFsdwOhy4m6LPTJuaMIN+aC6+AYWhS+dCJxnQ2Q/PdF2MztK8VNIpDuYWvCS0cZAKyMMkkRRrUBVyro0M5IoeaxBWq/unVb9eb/qNEncmfanVLvqS90txXbimMo6BXVxKxnOHIqJVEv4AJN/0RKAssjyaUlo4dkIem7j8vdZHI9/t0kmdstNaM9hiRZzaapOet8yOP1JxZnUkVyzukCzBiPPTpZVROc4rfX4GvBm/lBAGxKSo/LwygbfuUQ9cKt38jzENGmJe+cniQPFQbCkOaDXH7Ti7NyIrJFMbkm89PEFoEYKL1Wsf53ckTNZTAwNl03t0vTJjtSMtNwU+zQ9dn+jAAPKs281CJ0frPSz9fq10BW3ISDuyxZMd+048duTAJ0YHCXaCuffK6IwJ4/O8oKgvH03Z70zFUHMl/kwzLXDYRPD4MccTG8p8cCV6Ar6o+eDthB74EWTR0+UM+S8yyZVtaQKrgjs6wdSA9cUHoU1eu/XCBWik4bMH/5YsxNJTWnRdPnSvISQxqfK8Aw8i/4y5qw5UUuxKngZKJVqQmD8TfUqh+uQc6XVj9mI8B0b3/xlmqYwGPsz+7bScmn7FgPXdnm+4jamprjBe4zXWcRHIyhaFQ5UGWEasvqx9pcojumXK0SU+RKW3FjchDn8l5uN9IPr75ZzHnhlN+JDQrvFA8HQrRU0vevsA==
 
 # strategy defines the rollout strategy for deployment
 strategy:
@@ -55,11 +55,17 @@ service:
   type: ClusterIP
   port: 80
 
+# databases created on init
 databases:
   - name: app
     user: app_user
     password: POSTGRES_PASSWORD
     backup: true
+
+# prometheus configuration
+prometheus:
+  port: 9090
+  path: /metrics
 
 # backup configure cronjob of backup
 backup:
