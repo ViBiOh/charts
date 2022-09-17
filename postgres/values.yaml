@@ -33,7 +33,7 @@ persistentvolume:
 
 # secrets map, in the form of a Sealed Secrets, created and passed to the pod as a ref
 secrets:
-  POSTGRES_PASSWORD: changeme
+  POSTGRES_PASSWORD: AgCSYPpUQYRxkXYVpMj4Q6MM7gI/IHCJM107xWh02hpgFPaGxScYx+dlpFIVAM+tBavKwDx7K+ICt5qZ1KuLvs9/jCVX0OYFPrWTPyRqIp1eQMxpbmH8c5r08/9CPrerCoOUaumNS7WM/gXPOkqr2czI/3mpUJUKJ5YQHGKjP1CYYp+QAWYkZWAYTuu77bsHmyUxyS5qNN5XxxQi6IkbZB+Jn16xgnA3uYWr6t3vJ0sisC3iPY7nxoEd7lPt3zKJcRawLAx8g9/pydqWej3UYYLyO301INUHfuEL9nqMxGAhTqWsCwhM/HXcw/V97OkumvEZtzZbOaTT1AO+yiv+OyzIcLgfNusNnftDBVwzt7gRDxd4u6rgYL30LtfBBI/UDIXFPK2+SF+qOdYVSSMKC0hsx85goQoAVXgbxt+L1qL9Eit12kELVOesI1vVW4PzVQsNBkZrjkp99/SbYw2aydzZekljL1ZS4AsTjzp5/ByTwQGrNpb0Lzo0mbXJxkrLqzH3D/jKvhsA29Qk6N0mfnDcRhKFqbSVSW8F/Q1Zh+rHEhxS+2n0GEMcESqmiS36oc2uGWgNKXaAi+ujaVZ7pu1NHv7dQWWPxGNSyp6yn/SGNdzlxlCLgxg5iRfH0Cw2BhOswUZ4TadlxXAVCCljAAmM5yZyhsDSfiTyt9xRfVSF84WHK0hQ5hLDkUlZBk8DmE3VJE1AOm4izQ==
 
 # strategy defines the rollout strategy for deployment
 strategy:
@@ -45,25 +45,24 @@ affinity: {}
 # resources requests and limits for defining the QoS
 resources:
   limits:
-    memory: 128Mi
+    memory: 256Mi
   requests:
     cpu: 250m
-    memory: 128Mi
+    memory: 256Mi
 
 # service configuration for the service
 service:
   type: ClusterIP
   port: 80
 
-# pgBouncer configuration for the connection pooling, not ready for ARM
-pgBouncer:
-  enabled: false
-  version: 1.15.0
-  port: 6543
+databases:
+  - name: app
+    user: app_user
+    password: POSTGRES_PASSWORD
+    backup: true
 
 # backup configure cronjob of backup
 backup:
-  enabled: true
   restartPolicy: Never
   concurrencyPolicy: Forbid
   schedule: "0 4 * * *"
@@ -72,7 +71,7 @@ backup:
   failedJobsHistoryLimit: 2
   backoffLimit: 3
 
-  extraArgs: --data-only
+  extraArgs: ""
 
   # uploadCommand is what's called after pg_dump is success, it's appended with the backup filename without space
   uploadCommand: 'apk --no-cache add curl && curl "${FIBR_BACKUP_URL}" -H "Accept: text/plain" --fail-with-body --user "fibr:${FIBR_BACKUP_PASSWORD}" --form method=POST --form file=@'

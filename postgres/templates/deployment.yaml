@@ -32,6 +32,10 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "app.fullname" . }}
+        - name: databases
+          configMap:
+            name: {{ include "app.fullname" . }}-init
+
 
       {{- with .Values.affinity }}
       affinity: {{- toYaml . | nindent 8 }}
@@ -51,54 +55,6 @@ spec:
           type: RuntimeDefault
 
       containers:
-        {{- if .Values.pgBouncer.enabled }}
-        - name: pgbouncer
-          image: edoburu/pgbouncer:{{ .Values.pgBouncer.version }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: DB_HOST
-              value: localhost
-            - name: DB_NAME
-              value: {{ .Values.config.POSTGRES_DB | quote }}
-            - name: DB_USER
-              value: {{ .Values.config.POSTGRES_USER | quote }}
-            - name: LISTEN_PORT
-              value: {{ .Values.pgBouncer.port | quote }}
-            - name: POOL_MODE
-              value: session
-            - name: SERVER_RESET_QUERY
-              value: DISCARD ALL
-
-          envFrom:
-          {{- if .Values.secrets }}
-            - secretRef:
-                name: {{ include "app.fullname" . }}
-          {{- end }}
-
-          ports:
-            - name: pgbouncer
-              containerPort: {{ .Values.pgBouncer.port }}
-              protocol: TCP
-
-          livenessProbe:
-            tcpSocket:
-              port: {{ .Values.pgBouncer.port }}
-          readinessProbe:
-            tcpSocket:
-              port: {{ .Values.pgBouncer.port }}
-
-          {{- with .Values.resources }}
-          resources: {{- toYaml . | nindent 12 }}
-          {{- end }}
-
-          securityContext:
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-        {{- end }}
-
         - name: {{ include "app.fullname" . }}
           image: "{{ .Values.image.repository }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -118,6 +74,9 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/lib/postgresql/data
+            - name: databases
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
 
           ports:
             - name: postgres

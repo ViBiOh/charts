@@ -1,4 +1,11 @@
-{{- if .Values.backup.enabled }}
+{{ $needBackup := false }}
+{{ range .Values.databases }}
+  {{ if .backup }}
+    {{ $needBackup = true }}
+  {{ end }}
+{{ end }}
+
+{{- if $needBackup }}
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -40,29 +47,31 @@ spec:
               type: RuntimeDefault
 
           containers:
-            - name: {{ include "app.fullname" . }}-backup
-              image: "{{ .Values.image.repository }}"
-              imagePullPolicy: {{ .Values.image.pullPolicy }}
+            {{- range .Values.databases }}
+            {{- if .backup }}
+            - name: {{ .name }}-backup
+              image: "{{ $.Values.image.repository }}"
+              imagePullPolicy: {{ $.Values.image.pullPolicy }}
 
               command:
                 - /bin/bash
                 - -c
                 - |
-                  export PGPASSWORD="${POSTGRES_PASSWORD}"; export BACKUP_FILENAME="/tmp/${POSTGRES_DB}_backup_$(date -Iseconds)"; pg_dump --host={{ include "app.fullname" . }} --port={{ .Values.service.port }} --username="${POSTGRES_USER}" --format=c "${POSTGRES_DB}" {{ .Values.backup.extraArgs }} > "${BACKUP_FILENAME}" && {{ .Values.backup.uploadCommand }}"${BACKUP_FILENAME}"
+                  export PGPASSWORD="${POSTGRES_PASSWORD}"; export BACKUP_FILENAME="/tmp/{{ .name }}_backup_$(date -Iseconds)"; pg_dump --host={{ include "app.fullname" $ }} --port={{ $.Values.service.port }} --username="${POSTGRES_USER}" --format=c "{{ .name }}" {{ $.Values.backup.extraArgs }} > "${BACKUP_FILENAME}" && {{ $.Values.backup.uploadCommand }}"${BACKUP_FILENAME}"
 
-              {{- if or .Values.config .Values.secrets }}
+              {{- if or $.Values.config $.Values.secrets }}
               envFrom:
-              {{- if .Values.config }}
+              {{- if $.Values.config }}
                 - configMapRef:
-                    name: {{ include "app.fullname" . }}
+                    name: {{ include "app.fullname" $ }}
               {{- end }}
-              {{- if .Values.secrets }}
+              {{- if $.Values.secrets }}
                 - secretRef:
-                    name: {{ include "app.fullname" . }}
+                    name: {{ include "app.fullname" $ }}
               {{- end }}
               {{- end }}
 
-              {{- with .Values.resources }}
+              {{- with $.Values.resources }}
               resources: {{- toYaml . | nindent 16 }}
               {{- end }}
 
@@ -72,4 +81,6 @@ spec:
                 capabilities:
                   drop:
                     - ALL
+            {{- end }}
+            {{- end }}
 {{- end }}

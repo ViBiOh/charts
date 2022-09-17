@@ -1,8 +1,8 @@
 ---
 apiVersion: v2
 name: postgres
-description: A simple postgres instance
+description: A postgres instance
 
 type: application
-version: 0.0.40
+version: 0.1.0
 appVersion: "14"
