@@ -25,11 +25,11 @@ spec:
       {{- with .Values.secrets }}
         checksum/secrets: {{ toYaml . | sha256sum }}
       {{- end }}
-      labels:
         prometheus.io/scrape: "true"
         prometheus.io/scheme: http
         prometheus.io/port: {{ .Values.prometheus.port | quote }}
         prometheus.io/path: {{ .Values.prometheus.path | quote }}
+      labels:
         {{- include "app.selectorLabels" . | nindent 8 }}
 
     spec:
