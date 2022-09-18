@@ -12,9 +12,11 @@ spec:
 
   jobTemplate:
     metadata:
-      {{- with .Values.jobLabels }}
-      labels: {{ toYaml . | nindent 8 }}
-      {{- end }}
+      labels:
+        {{- include "app.selectorLabels" . | nindent 8 }}
+        {{- with .Values.jobLabels }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
 
       {{- if or .Values.config .Values.secrets }}
       annotations:

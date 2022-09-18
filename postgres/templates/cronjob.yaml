@@ -20,9 +20,12 @@ spec:
 
   jobTemplate:
     metadata:
-      {{- with .Values.jobLabels }}
-      labels: {{ toYaml . | nindent 8 }}
-      {{- end }}
+      labels:
+        app.kubernetes.io/name: {{ include "app.fullname" . }}-backup
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- with .Values.jobLabels }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
 
       {{- if or .Values.config .Values.secrets }}
       annotations:
