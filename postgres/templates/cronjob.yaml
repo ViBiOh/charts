@@ -71,10 +71,6 @@ spec:
               {{- end }}
               {{- end }}
 
-              {{- with $.Values.resources }}
-              resources: {{- toYaml . | nindent 16 }}
-              {{- end }}
-
               securityContext:
                 allowPrivilegeEscalation: false
                 runAsNonRoot: false
