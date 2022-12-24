@@ -1,5 +1,5 @@
 ---
-apiVersion: notification.toolkit.fluxcd.io/v1beta1
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
 kind: Receiver
 metadata:
   name: {{ include "app.fullname" . }}
@@ -20,7 +20,7 @@ spec:
       name: {{ include "app.fullname" . }}
 
 ---
-apiVersion: notification.toolkit.fluxcd.io/v1beta1
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
 kind: Alert
 metadata:
   name: {{ include "app.fullname" . }}
@@ -34,7 +34,7 @@ spec:
       name: {{ include "app.fullname" . }}
 
 ---
-apiVersion: notification.toolkit.fluxcd.io/v1beta1
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
 kind: Provider
 metadata:
   name: {{ include "app.fullname" . }}

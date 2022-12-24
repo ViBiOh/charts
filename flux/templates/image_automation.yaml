@@ -61,7 +61,7 @@ spec:
     strategy: Setters
 
 ---
-apiVersion: notification.toolkit.fluxcd.io/v1beta1
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
 kind: Receiver
 metadata:
   name: {{ include "app.fullname" . }}-image
