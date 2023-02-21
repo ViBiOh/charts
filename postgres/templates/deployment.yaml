@@ -109,8 +109,8 @@ spec:
                 - ALL
 
         - name: exporter
-          image: quay.io/prometheuscommunity/postgres-exporter
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.exporter.repository }}:{{ .Values.exporter.tag }}"
+          imagePullPolicy: {{ .Values.exporter.pullPolicy }}
 
           args:
             - --auto-discover-databases

@@ -1,10 +1,16 @@
 ---
 # image is the configuration of image management
 image:
-  repository: postgres:14-alpine
+  repository: postgres:15-alpine
   pullPolicy: Always
   pullSecretNames:
     - dockerhub
+
+# exporter is the configuration of exporter image
+exporter:
+  repository: quay.io/prometheuscommunity/postgres-exporter
+  tag: latest
+  pullPolicy: Always
 
 # podAnnotations placed on the pod
 podAnnotations: {}
