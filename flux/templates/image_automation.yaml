@@ -9,6 +9,10 @@ spec:
   interval: 120m
   timeout: 1m
   image: {{ .name }}
+  {{- if .secret }}
+  secretRef:
+    name: {{ .secret }}
+  {{- end }}
 
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1

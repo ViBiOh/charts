@@ -29,5 +29,6 @@ images:
   []
   # - id: api
   #   name: ViBiOh/scratch
+  #   secret: github-registry
 
 prune: true
