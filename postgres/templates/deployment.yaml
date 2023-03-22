@@ -136,11 +136,10 @@ spec:
 
           args:
             - --auto-discover-databases
-            - --log.level
-            - warn
-            - --log.format
-            - json
+            - --log.level=warn
+            - --log.format=json
             - --config.file=/opt/config/exporter.yaml
+            - --web.listen-address={{ .Values.prometheus.port }}
 
           {{- if or .Values.config .Values.secrets }}
           envFrom:
@@ -155,8 +154,6 @@ spec:
           {{- end }}
 
           env:
-            - name: PG_EXPORTER_WEB_LISTEN_ADDRESS
-              value: ":{{ .Values.prometheus.port }}"
             - name: DATA_SOURCE_NAME
               value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@127.0.0.1:{{ .Values.port }}/$(POSTGRES_DB)?sslmode=disable
 
