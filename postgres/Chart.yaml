@@ -4,5 +4,5 @@ name: postgres
 description: A postgres instance
 
 type: application
-version: 0.2.1
+version: 0.2.2
 appVersion: "15"

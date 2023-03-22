@@ -139,7 +139,7 @@ spec:
             - --log.level=warn
             - --log.format=json
             - --config.file=/opt/config/exporter.yaml
-            - --web.listen-address={{ .Values.prometheus.port }}
+            - --web.listen-address=:{{ .Values.prometheus.port }}
 
           {{- if or .Values.config .Values.secrets }}
           envFrom:
