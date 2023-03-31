@@ -10,6 +10,10 @@ spec:
   successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
   failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
 
+  {{- with .Values.timezone }}
+  timeZone: {{ . }}
+  {{- end }}
+
   jobTemplate:
     metadata:
       labels:
