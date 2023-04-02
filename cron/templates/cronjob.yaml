@@ -10,7 +10,7 @@ spec:
   successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
   failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
 
-  {{- with .Values.timezone }}
+  {{- with .Values.timeZone }}
   timeZone: {{ . }}
   {{- end }}
 

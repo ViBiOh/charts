@@ -10,7 +10,7 @@ image:
 restartPolicy: Never
 concurrencyPolicy: Forbid
 schedule: "0 6 * * *"
-timezone: ""
+timeZone: ""
 
 successfulJobsHistoryLimit: 2
 failedJobsHistoryLimit: 2
