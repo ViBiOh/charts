@@ -24,7 +24,7 @@
 
 {{- if .Values.ingress.redirect }}
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: {{ include "app.fullname" . }}-redirect
@@ -53,7 +53,7 @@ spec:
     group: cert-manager.io
 
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: {{ include "app.fullname" . }}-http
@@ -83,7 +83,7 @@ spec:
     {{- end }}
 
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: {{ include "app.fullname" . }}-https
