@@ -25,10 +25,10 @@ spec:
       {{- end }}
 
       {{- with .Values.config }}
-        checksum/config: {{- toYaml . | sha256sum }}
+        checksum/config: {{ toYaml . | sha256sum | quote }}
       {{- end }}
       {{- with .Values.secrets }}
-        checksum/secrets: {{- toYaml . | sha256sum }}
+        checksum/secrets: {{ toYaml . | sha256sum | quote }}
       {{- end }}
 
     spec:
