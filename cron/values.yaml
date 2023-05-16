@@ -27,8 +27,14 @@ config: {}
 # secrets map, in the form of a Sealed Secrets,passed as env var to the pod
 secrets: {}
 
-# affinity for the job
+# nodeSelector for the deployment
+nodeSelector: {}
+
+# affinity for the deployment
 affinity: {}
+
+# tolerations for the deployment
+tolerations: []
 
 # jobLabels place on a job
 jobLabels: {}

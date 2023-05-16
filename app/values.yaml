@@ -34,6 +34,9 @@ volumeMounts: []
 # strategy defines the rollout strategy for deployment
 strategy: {}
 
+# nodeSelector for the deployment
+nodeSelector: {}
+
 # affinity for the deployment
 affinity: {}
 
