@@ -10,7 +10,6 @@ metadata:
   {{- end }}
 spec:
   type: {{ .Values.service.type }}
-  internalTrafficPolicy: Local
   ports:
     - name: http
       port: {{ .Values.service.port }}
