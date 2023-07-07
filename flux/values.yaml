@@ -31,4 +31,6 @@ images:
   #   name: ViBiOh/scratch
   #   secret: github-registry
 
+image_automation: true
+
 prune: true

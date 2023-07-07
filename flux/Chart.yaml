@@ -4,5 +4,5 @@ name: flux
 description: Flux configuration
 
 type: application
-version: 0.0.19
+version: 0.0.20
 appVersion: latest
