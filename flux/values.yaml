@@ -30,6 +30,7 @@ images:
   # - id: api
   #   name: ViBiOh/scratch
   #   secret: github-registry
+  #   policy: timestamp || semver
 
 image_automation: true
 

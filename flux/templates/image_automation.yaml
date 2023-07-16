@@ -25,11 +25,17 @@ metadata:
 spec:
   imageRepositoryRef:
     name: {{ include "app.fullname" $ }}-{{ .id }}
+  {{- if eq .policy "semver" }}
+  policy:
+    semver:
+      range: ">=0.0.1"
+  {{- else }}
   filterTags:
     pattern: ^[0-9]{12}
   policy:
     numerical:
       order: asc
+  {{- end }}
 {{- end }}
 
 {{- if .Values.images }}
