@@ -25,7 +25,6 @@ lint:
 	helm lint flux/
 	helm lint job/
 	helm lint postgres/
-	helm lint redis/
 
 ## package: Package every charts into a tgz
 .PHONY: package
@@ -35,7 +34,6 @@ package:
 	helm package flux/ --destination packages/
 	helm package job/ --destination packages/
 	helm package postgres/ --destination packages/
-	helm package redis/ --destination packages/
 
 ## index: Index current repository state
 .PHONY: index
