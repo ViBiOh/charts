@@ -5,7 +5,7 @@ metadata:
   name: {{ include "app.fullname" . }}
   labels: {{- include "app.labels" . | nindent 4 }}
 spec:
-  interval: 120m
+  interval: 6h
   ref:
     branch: {{ .Values.repository.branch }}
   url: ssh://git@{{ .Values.repository.type }}.com/{{ .Values.repository.name }}
@@ -19,7 +19,7 @@ metadata:
   name: {{ include "app.fullname" . }}
   labels: {{- include "app.labels" . | nindent 4 }}
 spec:
-  interval: 120m
+  interval: 6h
   path: {{ .Values.repository.path }}
   prune: {{ .Values.prune }}
   sourceRef:
