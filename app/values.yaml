@@ -19,6 +19,9 @@ probes:
 # terminationGracePeriodSeconds is the time waiting before SIGKILL
 terminationGracePeriodSeconds: 60
 
+# podsAnnotations map passed to the pod's spec
+podsAnnotations: {}
+
 # config map passed as env var to the pod
 config: {}
 
@@ -73,12 +76,6 @@ service:
   type: ClusterIP
   port: 80
   annotations: {}
-
-# prometheus enable prometheus scraping
-prometheus:
-  enabled: true
-  port: 9090
-  path: /metrics
 
 # pprof enable pprof endpoint
 pprof:

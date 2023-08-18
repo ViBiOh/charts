@@ -16,12 +16,8 @@ spec:
     metadata:
       labels: {{- include "app.selectorLabels" . | nindent 8 }}
 
-      annotations:
-      {{- if .Values.prometheus.enabled }}
-        prometheus.io/scrape: "true"
-        prometheus.io/scheme: http
-        prometheus.io/port: {{ .Values.prometheus.port | quote }}
-        prometheus.io/path: {{ .Values.prometheus.path | quote }}
+      {{- with .Values.podsAnnotations }}
+      annotations: {{ toYaml . | nindent 8 }}
       {{- end }}
 
       {{- with .Values.config }}
@@ -85,20 +81,12 @@ spec:
           {{- end }}
           {{- end }}
 
-          {{- if or .Values.port .Values.prometheus.enabled .Values.pprof.enabled }}
+          {{- if or .Values.port .Values.pprof.enabled }}
           ports:
             {{- with .Values.port }}
             - name: http
               containerPort: {{ . }}
               protocol: TCP
-            {{- end }}
-
-            {{- if .Values.prometheus.enabled }}
-              {{ if ne .Values.prometheus.port $.Values.port }}
-            - name: prom
-              containerPort: {{ .Values.prometheus.port }}
-              protocol: TCP
-              {{- end }}
             {{- end }}
 
             {{- if .Values.pprof.enabled }}
