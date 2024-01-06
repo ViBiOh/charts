@@ -95,7 +95,7 @@ ingress:
   sticky: false
 
   tls:
-    enable: false
+    enabled: false
     httpsUpgrade: true
     clusterIssuer: letsencrypt
 
