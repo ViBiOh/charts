@@ -18,7 +18,7 @@
 {{- $httpMiddlewares := concat $customMiddlewares .Values.ingress.http_middlewares -}}
 {{- $httpsMiddlewares := concat $customMiddlewares .Values.ingress.https_middlewares -}}
 
-{{- if .Values.ingress.httpsUpgrade -}}
+{{- if and .Values.ingress.tls.enabled .Values.ingress.tls.httpsUpgrade -}}
   {{- $httpMiddlewares = append $customMiddlewares "redirect@file" -}}
 {{- end -}}
 
@@ -34,23 +34,6 @@ spec:
     regex: {{ .Values.ingress.redirect.regex }}
     replacement: {{ .Values.ingress.redirect.replacement }}
 {{- end }}
-
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: {{ include "app.fullname" . }}
-  labels: {{- include "app.labels" . | nindent 4 }}
-spec:
-  secretName: {{ include "app.fullname" . }}-tls
-  dnsNames:
-  {{- range .Values.ingress.hosts }}
-    - {{ . }}
-  {{- end }}
-  issuerRef:
-    kind: ClusterIssuer
-    name: {{ .Values.ingress.clusterIssuer }}
-    group: cert-manager.io
 
 ---
 apiVersion: traefik.io/v1alpha1
@@ -81,6 +64,25 @@ spec:
           kind: TraefikService
           {{- end }}
     {{- end }}
+
+
+{{- if .Values.ingress.tls.enabled }}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "app.fullname" . }}
+  labels: {{- include "app.labels" . | nindent 4 }}
+spec:
+  secretName: {{ include "app.fullname" . }}-tls
+  dnsNames:
+  {{- range .Values.ingress.hosts }}
+    - {{ . }}
+  {{- end }}
+  issuerRef:
+    kind: ClusterIssuer
+    name: {{ .Values.ingress.tls.clusterIssuer }}
+    group: cert-manager.io
 
 ---
 apiVersion: traefik.io/v1alpha1
@@ -122,3 +124,5 @@ spec:
           {{- end }}
     {{- end }}
 {{- end -}}
+
+{{- end }}

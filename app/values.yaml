@@ -92,9 +92,13 @@ ingress:
   enabled: false
   compress: false
   rateLimit: true
-  httpsUpgrade: true
   sticky: false
-  clusterIssuer: letsencrypt
+
+  tls:
+    enable: false
+    httpsUpgrade: true
+    clusterIssuer: letsencrypt
+
   hosts:
     - example.localhost
   http_middlewares: []
