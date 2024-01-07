@@ -82,36 +82,6 @@ pprof:
   enabled: false
   port: 9999
 
-# canary enable canary deployment
-canary:
-  enabled: false
-  url: https://vibioh.fr
-
-# ingress configuration of the Traefik's ingress, if any
-ingress:
-  enabled: false
-  compress: false
-  rateLimit: true
-  sticky: false
-
-  tls:
-    enabled: false
-    httpsUpgrade: true
-    clusterIssuer: letsencrypt
-
-  hosts:
-    - example.localhost
-  http_middlewares: []
-  https_middlewares: []
-  # redirect:
-  #   regex: ^https?://www.example.localhost(.*)
-  #   replacement: https://example.localhost${1}
-
-# podDisruption configuration for the podDisruption_budget, if any
-podDisruption:
-  enabled: false
-  minAvailable: 1
-
 # autoscaling configuration for the horizontal pod autoscaler, if any
 autoscaling:
   enabled: true
