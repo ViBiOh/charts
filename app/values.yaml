@@ -19,6 +19,9 @@ probes:
 # terminationGracePeriodSeconds is the time waiting before SIGKILL
 terminationGracePeriodSeconds: 60
 
+# labels added on the deployment
+labels: {}
+
 # podsAnnotations map passed to the pod's spec
 podsAnnotations: {}
 

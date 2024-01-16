@@ -14,7 +14,7 @@ spec:
 
   template:
     metadata:
-      labels: {{- include "app.selectorLabels" . | nindent 8 }}
+      labels: {{- include "app.labels" . | nindent 8 }}
 
       {{- with .Values.podsAnnotations }}
       annotations: {{ toYaml . | nindent 8 }}

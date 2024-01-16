@@ -27,6 +27,9 @@ config: {}
 # secrets map, in the form of a Sealed Secrets,passed as env var to the pod
 secrets: {}
 
+# labels added on the deployment
+labels: {}
+
 # nodeSelector for the deployment
 nodeSelector: {}
 
