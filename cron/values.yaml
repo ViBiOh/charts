@@ -24,6 +24,9 @@ containers:
 # config map passed as env var to the pod
 config: {}
 
+# env inlined to the pod
+env: {}
+
 # secrets map, in the form of a Sealed Secrets,passed as env var to the pod
 secrets: {}
 

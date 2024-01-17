@@ -75,6 +75,10 @@ spec:
               args: {{- toYaml . | nindent 16 }}
               {{- end }}
 
+              {{- with $.Values.env }}
+              env: {{- toYaml . | nindent 16 }}
+              {{- end }}
+
               {{- if or $.Values.config $.Values.secrets }}
               envFrom:
               {{- if $.Values.config }}

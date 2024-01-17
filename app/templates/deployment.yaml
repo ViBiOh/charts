@@ -69,6 +69,10 @@ spec:
           image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
+          {{- with .Values.env }}
+          env: {{- toYaml . | nindent 12 }}
+          {{- end }}
+
           {{- if or .Values.config .Values.secrets }}
           envFrom:
           {{- if .Values.config }}
