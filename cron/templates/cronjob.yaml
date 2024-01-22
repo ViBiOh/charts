@@ -16,11 +16,7 @@ spec:
 
   jobTemplate:
     metadata:
-      labels:
-        {{- include "app.labels" . | nindent 8 }}
-        {{- with .Values.jobLabels }}
-          {{- toYaml . | nindent 8 }}
-        {{- end }}
+      labels: {{- include "app.labels" . | nindent 8 }}
 
       {{- if or .Values.config .Values.secrets }}
       annotations:

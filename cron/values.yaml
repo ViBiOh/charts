@@ -42,9 +42,6 @@ affinity: {}
 # tolerations for the deployment
 tolerations: []
 
-# jobLabels place on a job
-jobLabels: {}
-
 # securityContext for the main container
 securityContext:
   allowPrivilegeEscalation: false
