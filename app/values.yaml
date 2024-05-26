@@ -94,3 +94,6 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 3
   targetAverageUtilization: 80
+
+# initContainers of the pod
+initContainers: []
