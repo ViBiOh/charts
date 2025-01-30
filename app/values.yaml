@@ -97,3 +97,8 @@ autoscaling:
 
 # initContainers of the pod
 initContainers: []
+
+httproute:
+  enabled: false
+  hostname: localhost
+  port: 1080

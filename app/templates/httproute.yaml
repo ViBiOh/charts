@@ -1,0 +1,47 @@
+{{- if .Values.httproute.enabled -}}
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "app.fullname" . }}-http
+  labels: {{- include "app.labels" . | nindent 4 }}
+spec:
+  parentRefs:
+    - name: traefik
+      sectionName: http
+      kind: Gateway
+
+  hostnames:
+    - {{ .Values.httproute.hostname }}
+
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "app.fullname" . }}-https
+  labels: {{- include "app.labels" . | nindent 4 }}
+spec:
+  parentRefs:
+    - name: traefik
+      sectionName: https
+      kind: Gateway
+
+  hostnames:
+    - {{ .Values.httproute.hostname }}
+
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+
+      backendRefs:
+        - name: {{ include "app.fullname" . }}
+          port: {{ .Values.httproute.port }}
+{{- end -}}
