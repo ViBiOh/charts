@@ -71,7 +71,8 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  tls: {}
+  tls:
+    certResolver: letsencrypt
   routes:
     {{- range .Values.ingress.hosts }}
     - match: Host(`{{ . }}`)
