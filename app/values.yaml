@@ -98,7 +98,20 @@ autoscaling:
 # initContainers of the pod
 initContainers: []
 
-httproute:
+# ingress configuration of the Traefik's ingress, if any
+ingress:
   enabled: false
-  hostname: localhost
-  port: 1080
+  compress: false
+  rateLimit: true
+  sticky: false
+
+  tls:
+    enabled: false
+
+  hosts:
+    - example.localhost
+  http_middlewares: []
+  https_middlewares: []
+  # redirect:
+  #   regex: ^https?://www.example.localhost(.*)
+  #   replacement: https://example.localhost${1}

@@ -1,0 +1,82 @@
+{{- if .Values.ingress.enabled -}}
+
+{{- $customMiddlewares := list -}}
+
+{{- if .Values.ingress.rateLimit -}}
+  {{- $customMiddlewares = append $customMiddlewares "ratelimit" -}}
+{{- end -}}
+
+{{- if .Values.ingress.compress -}}
+  {{- $customMiddlewares = append $customMiddlewares "compress" -}}
+{{- end -}}
+
+{{- $httpMiddlewares := concat $customMiddlewares .Values.ingress.http_middlewares -}}
+{{- $httpsMiddlewares := concat $customMiddlewares .Values.ingress.https_middlewares -}}
+
+{{- if .Values.ingress.tls.enabled -}}
+  {{- $httpMiddlewares = append $httpMiddlewares "redirect" -}}
+{{- end -}}
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "app.fullname" . }}-http
+  labels: {{- include "app.labels" . | nindent 4 }}
+spec:
+  entryPoints:
+    - web
+  routes:
+    {{- range .Values.ingress.hosts }}
+    - match: Host(`{{ . }}`)
+      kind: Rule
+      {{- with $httpMiddlewares }}
+      middlewares:
+        {{- range . }}
+        - name: {{ . }}
+          namespace: {{ $.Release.Namespace }}
+        {{- end }}
+      {{- end }}
+      services:
+        - name: {{ include "app.fullname" $ }}
+          port: {{ $.Values.service.port }}
+    {{- end }}
+
+
+{{- if .Values.ingress.tls.enabled }}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "app.fullname" . }}-https
+  labels: {{- include "app.labels" . | nindent 4 }}
+spec:
+  entryPoints:
+    - websecure
+  tls: {}
+  routes:
+    {{- range .Values.ingress.hosts }}
+    - match: Host(`{{ . }}`)
+      kind: Rule
+      {{- with $httpsMiddlewares }}
+      middlewares:
+        {{- range . }}
+        - name: {{ . }}
+          namespace: {{ $.Release.Namespace }}
+        {{- end }}
+      {{- end }}
+      services:
+        - name: {{ include "app.fullname" $ }}
+          port: {{ $.Values.service.port }}
+          {{- if $.Values.ingress.sticky }}
+          sticky:
+            cookie:
+              httpOnly: true
+              name: sticky
+              secure: true
+              sameSite: strict
+          {{- end }}
+    {{- end }}
+{{- end -}}
+
+{{- end }}
