@@ -2,6 +2,11 @@
 
 {{- $customMiddlewares := list -}}
 
+{{- if .Values.ingress.redirect }}
+  {{- $redirectMiddleware := printf "%s-%s" (include "app.fullname" .) "redirect" -}}
+  {{- $customMiddlewares = append $customMiddlewares $redirectMiddleware -}}
+{{- end -}}
+
 {{- if .Values.ingress.rateLimit -}}
   {{- $customMiddlewares = append $customMiddlewares "ratelimit" -}}
 {{- end -}}
@@ -16,6 +21,19 @@
 {{- if .Values.ingress.tls.enabled -}}
   {{- $httpMiddlewares = append $httpMiddlewares "redirect" -}}
 {{- end -}}
+
+{{- if .Values.ingress.redirect }}
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ include "app.fullname" . }}-redirect
+  labels: {{- include "app.labels" . | nindent 4 }}
+spec:
+  redirectRegex:
+    regex: {{ .Values.ingress.redirect.regex }}
+    replacement: {{ .Values.ingress.redirect.replacement }}
+{{- end }}
 
 ---
 apiVersion: traefik.io/v1alpha1
