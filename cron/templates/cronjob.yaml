@@ -90,6 +90,13 @@ spec:
               {{- end }}
               {{- end }}
 
+              {{- with $.Values.port }}
+              ports:
+                - name: http
+                  containerPort: {{ . }}
+                  protocol: TCP
+              {{- end }}
+
               {{- with $.Values.resources }}
               resources: {{- toYaml . | nindent 16 }}
               {{- end }}

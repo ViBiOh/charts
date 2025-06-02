@@ -21,6 +21,9 @@ containers:
     command: []
     args: []
 
+# port HTTP listened
+port: 0
+
 # config map passed as env var to the pod
 config: {}
 
