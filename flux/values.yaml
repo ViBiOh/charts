@@ -7,6 +7,9 @@ repository:
   # name of the repository cloned
   name: ViBiOh/scratch
 
+  # id of the repository (for GitLab)
+  id: ViBiOh/scratch
+
   # default branch for both cloning and image update
   branch: main
 
@@ -25,8 +28,7 @@ receiver:
   token: webhook-token
 
 # images to check automation for {id, name}
-images:
-  []
+images: []
   # - id: api
   #   name: ViBiOh/scratch
   #   secret: github-registry

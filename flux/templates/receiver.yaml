@@ -41,6 +41,6 @@ metadata:
   labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.repository.type }}
-  address: https://{{ .Values.repository.type }}.com/{{ .Values.repository.name }}
+  address: https://{{ .Values.repository.type }}.com/{{ default .Values.repository.id .Values.repository.name }}
   secretRef:
     name: {{ .Values.repository.token }}
