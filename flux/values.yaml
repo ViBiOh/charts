@@ -8,7 +8,7 @@ repository:
   name: ViBiOh/scratch
 
   # id of the repository (for GitLab)
-  id: ViBiOh/scratch
+  id: ""
 
   # default branch for both cloning and image update
   branch: main
