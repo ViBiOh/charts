@@ -6,6 +6,7 @@ metadata:
   labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.repository.type }}
+  interval: 6h
   events:
   {{- if eq .Values.repository.type "github" }}
     - ping

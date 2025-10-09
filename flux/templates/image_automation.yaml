@@ -80,6 +80,7 @@ metadata:
   labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   type: generic-hmac
+  interval: 6h
   secretRef:
     name: {{ .Values.receiver.token }}
   resources:
