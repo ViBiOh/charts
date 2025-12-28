@@ -46,6 +46,9 @@ strategy: {}
 # nodeSelector for the deployment
 nodeSelector: {}
 
+# nodeName for the deployment
+nodeName: {}
+
 # affinity for the deployment
 affinity: {}
 
