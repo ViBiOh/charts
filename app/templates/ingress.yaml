@@ -63,6 +63,23 @@ spec:
 
 {{- if .Values.ingress.tls.enabled }}
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "app.fullname" . }}
+  labels: {{- include "app.labels" . | nindent 4 }}
+spec:
+  secretName: {{ include "app.fullname" . }}-tls
+  dnsNames:
+  {{- range .Values.ingress.hosts }}
+    - {{ . }}
+  {{- end }}
+  issuerRef:
+    kind: ClusterIssuer
+    name: {{ .Values.ingress.tls.clusterIssuer }}
+    group: cert-manager.io
+
+---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
@@ -72,7 +89,7 @@ spec:
   entryPoints:
     - websecure
   tls:
-    certResolver: letsencrypt
+    secretName: {{ include "app.fullname" . }}-tls
   routes:
     {{- range .Values.ingress.hosts }}
     - match: Host(`{{ . }}`)
