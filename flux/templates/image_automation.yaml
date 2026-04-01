@@ -67,7 +67,7 @@ spec:
         email: flux@vibioh.fr
       signingKey:
         secretRef:
-          name: github-ssh
+          name: {{ .Values.repository.secret }}
   update:
     path: {{ .Values.repository.path }}
     strategy: Setters

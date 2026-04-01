@@ -1,7 +1,7 @@
 ---
 # repository definition for flux
 repository:
-  # type defined where the repository in stored: github or gitlab
+  # type defined where the repository in stored: github, gitlab or codeberg
   type: github
 
   # name of the repository cloned

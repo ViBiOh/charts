@@ -8,7 +8,7 @@ spec:
   interval: 6h
   ref:
     branch: {{ .Values.repository.branch }}
-  url: ssh://git@{{ .Values.repository.type }}.com/{{ .Values.repository.name }}
+  url: ssh://git@{{ include "app.git_url" .Values.repository.type }}/{{ .Values.repository.name }}
   secretRef:
     name: {{ .Values.repository.secret }}
 

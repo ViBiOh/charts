@@ -31,6 +31,34 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
+Git URL
+*/}}
+{{- define "app.git_url" -}}
+  {{- if eq . "github" }}
+    {{- printf "github.com" -}}
+  {{- else -}}
+    {{- if eq . "gitlab" -}}
+      {{- printf "gitlab.com" -}}
+    {{- else -}}
+      {{- if eq . "codeberg" -}}
+        {{- printf "codeberg.org" -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end }}
+
+{{/*
+Receiver type
+*/}}
+{{- define "app.receiver_type" -}}
+  {{- if eq . "codeberg" -}}
+    {{- printf "generic-hmac" -}}
+  {{- else -}}
+    {{- printf "%s" . -}}
+  {{- end -}}
+{{- end }}
+
+{{/*
 Common labels
 */}}
 {{- define "app.labels" -}}
