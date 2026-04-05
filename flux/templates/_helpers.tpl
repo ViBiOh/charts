@@ -36,14 +36,10 @@ Git URL
 {{- define "app.git_url" -}}
   {{- if eq . "github" }}
     {{- printf "github.com" -}}
-  {{- else -}}
-    {{- if eq . "gitlab" -}}
-      {{- printf "gitlab.com" -}}
-    {{- else -}}
-      {{- if eq . "codeberg" -}}
-        {{- printf "codeberg.org" -}}
-      {{- end -}}
-    {{- end -}}
+  {{- else if eq . "gitlab" -}}
+    {{- printf "gitlab.com" -}}
+  {{- else if eq . "codeberg" -}}
+    {{- printf "codeberg.org" -}}
   {{- end -}}
 {{- end }}
 
@@ -52,7 +48,7 @@ Receiver type
 */}}
 {{- define "app.receiver_type" -}}
   {{- if eq . "codeberg" -}}
-    {{- printf "generic-hmac" -}}
+    {{- printf "generic" -}}
   {{- else -}}
     {{- printf "%s" . -}}
   {{- end -}}
