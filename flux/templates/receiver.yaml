@@ -11,7 +11,7 @@ spec:
   {{- if eq .Values.repository.type "github" }}
     - ping
     - push
-  {{- else }}
+  {{- else if eq .Values.repository.type "gitlab" }}
     - Push Hook
   {{- end }}
   secretRef:
@@ -34,6 +34,7 @@ spec:
     - kind: Kustomization
       name: {{ include "app.fullname" . }}
 
+{{- if or (eq .Values.repository.type "github") (eq .Values.repository.type "gitlab") }}
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Provider
@@ -45,3 +46,4 @@ spec:
   address: https://{{ include "app.git_url" .Values.repository.type }}/{{ default .Values.repository.name .Values.repository.id }}
   secretRef:
     name: {{ .Values.repository.token }}
+{{ end }}
