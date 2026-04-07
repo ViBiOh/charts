@@ -20,6 +20,7 @@ spec:
     - kind: GitRepository
       name: {{ include "app.fullname" . }}
 
+{{- if or (eq .Values.repository.type "github") (eq .Values.repository.type "gitlab") }}
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Alert
@@ -34,7 +35,6 @@ spec:
     - kind: Kustomization
       name: {{ include "app.fullname" . }}
 
-{{- if or (eq .Values.repository.type "github") (eq .Values.repository.type "gitlab") }}
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Provider
