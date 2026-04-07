@@ -13,6 +13,8 @@ spec:
     - push
   {{- else if eq .Values.repository.type "gitlab" }}
     - Push Hook
+  {{- else }}
+    []
   {{- end }}
   secretRef:
     name: {{ .Values.receiver.token }}
